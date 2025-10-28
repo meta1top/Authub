@@ -10,7 +10,9 @@ import { setupSwagger } from "./app.swagger";
 import type { AppConfig } from "./app.types";
 
 // 在最开始加载环境变量
-config();
+config({
+  path: path.join(process.cwd(), "apps/server-authub/.env"),
+});
 
 async function bootstrap() {
   const logger = new Logger("Main");

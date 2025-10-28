@@ -8,7 +8,7 @@
     "tsConfigPath": "apps/server-authub/tsconfig.app.json"
   },
   "monorepo": true,
-  "defaultLibraryPrefix": "@meta-1",
+  "defaultLibraryPrefix": "@meta-1/lib-",
   "root": "apps/server-authub",
   "projects": {
     "server-authub": {
@@ -20,34 +20,13 @@
         "tsConfigPath": "apps/server-authub/tsconfig.app.json"
       }
     },
-    "common": {
+    "account": {
       "type": "library",
-      "root": "libs/common",
+      "root": "libs/account",
       "entryFile": "index",
-      "sourceRoot": "libs/common/src",
+      "sourceRoot": "libs/account/src",
       "compilerOptions": {
-        "tsConfigPath": "libs/common/tsconfig.lib.json",
-        "webpack": false
-      }
-    },
-    "message": {
-      "type": "library",
-      "root": "libs/message",
-      "entryFile": "index",
-      "sourceRoot": "libs/message/src",
-      "compilerOptions": {
-        "tsConfigPath": "libs/message/tsconfig.lib.json",
-        "webpack": false
-      }
-    },
-    "nacos": {
-      "type": "library",
-      "root": "libs/nacos",
-      "entryFile": "index",
-      "sourceRoot": "libs/nacos/src",
-      "compilerOptions": {
-        "tsConfigPath": "libs/nacos/tsconfig.lib.json",
-        "webpack": false
+        "tsConfigPath": "libs/account/tsconfig.lib.json"
       }
     },
     "types": {
@@ -56,8 +35,7 @@
       "entryFile": "index",
       "sourceRoot": "libs/types/src",
       "compilerOptions": {
-        "tsConfigPath": "libs/types/tsconfig.lib.json",
-        "webpack": false
+        "tsConfigPath": "libs/types/tsconfig.lib.json"
       }
     }
   }

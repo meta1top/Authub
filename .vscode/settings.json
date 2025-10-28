@@ -45,7 +45,10 @@
 		"nodenext",
 		"idgen",
 		"authub",
-		"esbuild"
+		"esbuild",
+		"alicloud",
+		"sesv2",
+		"prosemirror"
 	],
 	"css.customData": ["${workspaceFolder}/.vscode/tailwind.json"],
 	"css.validate": false,

@@ -8,6 +8,7 @@ import { AcceptLanguageResolver, HeaderResolver, I18nJsonLoader, I18nModule, Que
 import { ZodValidationPipe } from "nestjs-zod";
 import { SnakeNamingStrategy } from "typeorm-naming-strategies";
 
+import { AccountModule } from "@meta-1/lib-account";
 import { CacheableInitializer, ErrorsFilter, ResponseInterceptor } from "@meta-1/nest-common";
 import { NacosModule } from "@meta-1/nest-nacos";
 import { AppController } from "./app.controller";
@@ -22,7 +23,7 @@ export class AppModule {
       DiscoveryModule,
       ConfigModule.forRoot({
         isGlobal: true,
-        envFilePath: ".env",
+        envFilePath: "apps/server-authub/.env",
       }),
       I18nModule.forRoot({
         fallbackLanguage: "zh-CN",
@@ -77,7 +78,7 @@ export class AppModule {
 
     return {
       module: AppModule,
-      imports: [...imports],
+      imports: [...imports, AccountModule],
       controllers: [AppController],
       providers: [
         CacheableInitializer,

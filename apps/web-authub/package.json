@@ -16,7 +16,7 @@
     "url": "https://github.com/zkit-org/packages.git"
   },
   "scripts": {
-    "dev": "next dev -p 4002 --turbopack",
+    "dev": "next dev -p 3100 --turbopack",
     "build": "next build --turbopack",
     "start": "next start"
   },
