@@ -19,12 +19,12 @@
     "test:e2e": "jest --config ./apps/support/test/jest-e2e.json"
   },
   "dependencies": {
-    "@meta-1/design": "0.0.159",
-    "@meta-1/editor": "0.0.27",
-    "@meta-1/nest-common": "0.0.1",
-    "@meta-1/nest-message": "0.0.1",
-    "@meta-1/nest-nacos": "0.0.1",
-    "@meta-1/nest-types": "0.0.2",
+    "@meta-1/design": "0.0.160",
+    "@meta-1/editor": "0.0.28",
+    "@meta-1/nest-common": "0.0.2",
+    "@meta-1/nest-message": "0.0.2",
+    "@meta-1/nest-nacos": "0.0.2",
+    "@meta-1/nest-types": "0.0.3",
     "@nestjs/common": "^11.0.1",
     "@nestjs/core": "^11.0.1",
     "@nestjs/platform-express": "^11.0.1",
