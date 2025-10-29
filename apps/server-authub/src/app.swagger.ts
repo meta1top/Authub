@@ -3,10 +3,9 @@ import { DocumentBuilder, SwaggerModule } from "@nestjs/swagger";
 
 export const setupSwagger = (app: INestApplication) => {
   const config = new DocumentBuilder()
-    .setTitle("Meta1 Developer Server")
-    .setDescription("The Meta1 Developer Server API description")
+    .setTitle("Authub Server")
+    .setDescription("The Authub Server API description")
     .setVersion("1.0")
-    .addTag("Meta1 Developer Server")
     .addBearerAuth(
       {
         type: "http",
