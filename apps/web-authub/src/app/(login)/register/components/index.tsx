@@ -5,6 +5,7 @@ import cloneDeep from "lodash/cloneDeep";
 import { useTranslation } from "react-i18next";
 
 import { Button, Form, FormItem, Input } from "@meta-1/design";
+import { SendCodeData } from "@meta-1/nest-types";
 import { EmailCodeInput } from "@/components/common/input/email-code";
 import { useEncrypt, useMutation } from "@/hooks";
 import { register } from "@/rest/account";
@@ -46,9 +47,9 @@ export const RegisterPage = () => {
           <Input placeholder={t("请输入正确的邮箱")} />
         </FormItem>
         <FormItem label={t("邮箱验证码")} name="code">
-          <EmailCodeInput
+          <EmailCodeInput<SendCodeData>
             api={sendEmailCode}
-            data={{ email: formData?.email || "" }}
+            data={{ email: formData?.email || "", action: "register" }}
             needEmail={true}
             placeholder={t("请输入邮箱验证码")}
           />

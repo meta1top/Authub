@@ -11,6 +11,7 @@ import { AccountModule, AuthGuard } from "@meta-1/lib-account";
 import { CommonModule } from "@meta-1/nest-common";
 import { MessageModule } from "@meta-1/nest-message";
 import { NacosModule } from "@meta-1/nest-nacos";
+import { SecurityModule } from "@meta-1/nest-security";
 import { AppController, ConfigController } from "./controller";
 import type { AppConfig } from "./shared";
 
@@ -78,7 +79,7 @@ export class AppModule {
 
     return {
       module: AppModule,
-      imports: [...imports, CommonModule, MessageModule, AccountModule],
+      imports: [...imports, CommonModule, MessageModule, SecurityModule, AccountModule],
       controllers: [AppController, ConfigController],
       providers: [
         {

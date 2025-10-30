@@ -4,16 +4,9 @@ import ms from "ms";
 import { Repository } from "typeorm";
 
 import { Token } from "@meta-1/lib-types";
-import {
-  AppError,
-  Cacheable,
-  CacheableService,
-  EncryptService,
-  md5,
-  SessionService,
-  TokenService,
-} from "@meta-1/nest-common";
+import { AppError, Cacheable, CacheableService, md5 } from "@meta-1/nest-common";
 import { MailCodeService } from "@meta-1/nest-message";
+import { EncryptService, SessionService, TokenService } from "@meta-1/nest-security";
 import { LoginDto, RegisterDto } from "../dto";
 import { Account } from "../entity";
 import { ErrorCode } from "../shared";
@@ -38,8 +31,7 @@ export class AccountService {
       throw new AppError(ErrorCode.MAIL_CODE_ERROR);
     }
     // 判断账号是否存在
-    const username = dto.email;
-    const existingAccount = await this.repository.findOne({ where: { username, deleted: false } });
+    const existingAccount = await this.repository.findOne({ where: { email: dto.email, deleted: false } });
     if (existingAccount) {
       throw new AppError(ErrorCode.ACCOUNT_EXISTS);
     }
@@ -51,6 +43,8 @@ export class AccountService {
     const encryptedPassword = this.encryptService.encryptWithAES(decryptedPassword, aesKey);
 
     // 创建账号
+    // username 是 email @ 前面的部分
+    const username = dto.email.split("@")[0];
     const account = this.repository.create({
       ...dto,
       username,

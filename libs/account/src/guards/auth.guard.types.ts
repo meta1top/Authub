@@ -1,4 +1,4 @@
-import type { SessionUser } from "@meta-1/nest-common";
+import type { SessionUser } from "@meta-1/nest-security";
 
 declare global {
   namespace Express {

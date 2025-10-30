@@ -8,18 +8,9 @@
     "tsConfigPath": "apps/server-authub/tsconfig.app.json"
   },
   "monorepo": true,
-  "defaultLibraryPrefix": "@meta-1/lib-",
+  "defaultLibraryPrefix": "@meta-1",
   "root": "apps/server-authub",
   "projects": {
-    "server-authub": {
-      "type": "application",
-      "root": "apps/server-authub",
-      "entryFile": "main",
-      "sourceRoot": "apps/server-authub/src",
-      "compilerOptions": {
-        "tsConfigPath": "apps/server-authub/tsconfig.app.json"
-      }
-    },
     "account": {
       "type": "library",
       "root": "libs/account",
@@ -27,6 +18,15 @@
       "sourceRoot": "libs/account/src",
       "compilerOptions": {
         "tsConfigPath": "libs/account/tsconfig.lib.json"
+      }
+    },
+    "server-authub": {
+      "type": "application",
+      "root": "apps/server-authub",
+      "entryFile": "main",
+      "sourceRoot": "apps/server-authub/src",
+      "compilerOptions": {
+        "tsConfigPath": "apps/server-authub/tsconfig.app.json"
       }
     },
     "types": {

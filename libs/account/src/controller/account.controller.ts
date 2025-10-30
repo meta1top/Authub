@@ -1,7 +1,8 @@
 import { Body, Controller, Get, Post } from "@nestjs/common";
 import { ApiTags } from "@nestjs/swagger";
 
-import { CurrentUser, md5, Public, SessionService, type SessionUser } from "@meta-1/nest-common";
+import { md5 } from "@meta-1/nest-common";
+import { CurrentUser, Public, SessionService, type SessionUser } from "@meta-1/nest-security";
 import { LoginDto, RegisterDto } from "../dto";
 import { AccountService } from "../service";
 

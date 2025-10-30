@@ -2,7 +2,9 @@ import { CanActivate, ExecutionContext, Injectable } from "@nestjs/common";
 import { Reflector } from "@nestjs/core";
 import type { Request } from "express";
 
-import { AppError, ErrorCode, IS_PUBLIC_KEY, SessionService } from "@meta-1/nest-common";
+import { AppError, ErrorCode } from "@meta-1/nest-common";
+import { IS_PUBLIC_KEY, SessionService } from "@meta-1/nest-security";
+
 
 import "./auth.guard.types";
 

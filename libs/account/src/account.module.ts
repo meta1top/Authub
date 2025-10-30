@@ -4,6 +4,7 @@ import { get } from "lodash";
 
 import { CommonModule } from "@meta-1/nest-common";
 import { NacosConfigService } from "@meta-1/nest-nacos";
+import { AccountController } from "./controller";
 import { Account, AccountToken, App, AppAccount } from "./entity";
 import { AccountConfigService, AccountService } from "./service";
 import { ACCOUNT_CONFIG_KEY, AccountConfig } from "./shared";
@@ -13,6 +14,7 @@ import { ACCOUNT_CONFIG_KEY, AccountConfig } from "./shared";
   imports: [TypeOrmModule.forFeature([Account, AccountToken, App, AppAccount]), CommonModule],
   providers: [AccountConfigService, AccountService],
   exports: [AccountService],
+  controllers: [AccountController],
 })
 export class AccountModule implements OnModuleInit {
   private readonly logger = new Logger(AccountModule.name);

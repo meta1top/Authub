@@ -10,9 +10,6 @@ export default {
   compiler: {
     removeConsole: !isDev,
   },
-  eslint: {
-    ignoreDuringBuilds: true,
-  },
   turbopack: {
     rules: {
       "*.svg": {
