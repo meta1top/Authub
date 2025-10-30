@@ -18,19 +18,19 @@ export class Account {
   @Column({
     type: "varchar",
     length: 32,
-    nullable: true,
+    nullable: false,
     comment: "用户名",
   })
-  username: string | null;
+  username: string;
 
   @Column({
     type: "varchar",
     length: 255,
-    nullable: true,
+    nullable: false,
     select: false,
     comment: "密码",
   })
-  password: string | null;
+  password: string;
 
   @Column({
     type: "varchar",
@@ -55,8 +55,6 @@ export class Account {
   lastTime: Date | null;
 
   @Column({
-    type: "tinyint",
-    width: 1,
     default: false,
     select: false,
     comment: "是否已删除",
@@ -64,8 +62,6 @@ export class Account {
   deleted: boolean;
 
   @Column({
-    type: "tinyint",
-    width: 1,
     default: true,
     comment: "是否启用",
   })

@@ -7,7 +7,12 @@ import "@/plugin/rest.server";
 import "@/plugin/locales";
 import "@/assets/style/index.css";
 
-import { loadInitialData } from "@/utils/layout";
+import { HydrationBoundary } from "@tanstack/react-query";
+
+import { ServerStateLoader } from "@/components/common/server-state-loader";
+import { dehydratedState } from "@/components/common/server-state-loader/state";
+import { getLocale } from "@/utils/locale.server";
+import { getTheme } from "@/utils/theme.server";
 
 export type LayoutProps = PropsWithChildren;
 
@@ -23,18 +28,15 @@ export const metadata: Metadata = {
 };
 
 const Layout: FC<LayoutProps> = async (props) => {
-  const initialData = await loadInitialData();
-  const { locale, theme, profileData, isLogin, configData } = initialData;
+  const locale = await getLocale();
+  const theme = await getTheme();
+  const state = await dehydratedState();
   return (
     <HTMLLayout>
-      <RootLayout
-        config={configData}
-        isLogin={isLogin ?? false}
-        locale={locale}
-        profile={profileData ?? null}
-        theme={theme}
-      >
-        {props.children}
+      <RootLayout locale={locale} theme={theme}>
+        <HydrationBoundary state={state}>
+          <ServerStateLoader>{props.children}</ServerStateLoader>
+        </HydrationBoundary>
       </RootLayout>
     </HTMLLayout>
   );
