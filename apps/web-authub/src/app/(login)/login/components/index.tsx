@@ -8,7 +8,7 @@ import { useTranslation } from "react-i18next";
 
 import { Button, Divider, Form, FormItem, Input, useMessage } from "@meta-1/design";
 import { useEncrypt, useMutation } from "@/hooks";
-import { type LoginRestData, login } from "@/rest/auth";
+import { type LoginRestData, login } from "@/rest/account";
 import { type LoginFormData, useSchema } from "@/schema/login";
 import { RestError } from "@/utils/rest";
 import { setToken } from "@/utils/token";

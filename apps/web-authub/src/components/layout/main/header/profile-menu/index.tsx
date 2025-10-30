@@ -12,7 +12,7 @@ import {
   useAlert,
   useMessage,
 } from "@meta-1/design";
-import { logout } from "@/rest/auth";
+import { logout } from "@/rest/account";
 import { AccountAvatar, AccountInfo } from "./account-info";
 
 export type ProfileMenuProps = {

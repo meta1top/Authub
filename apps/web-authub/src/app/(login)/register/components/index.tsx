@@ -7,7 +7,8 @@ import { useTranslation } from "react-i18next";
 import { Button, Form, FormItem, Input } from "@meta-1/design";
 import { EmailCodeInput } from "@/components/common/input/email-code";
 import { useEncrypt, useMutation } from "@/hooks";
-import { register, sendEmailCode } from "@/rest/register";
+import { register } from "@/rest/account";
+import { sendEmailCode } from "@/rest/public";
 import { type RegisterFormData, useSchema } from "@/schema/register";
 import { setToken } from "@/utils/token";
 

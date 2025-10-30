@@ -43,12 +43,20 @@ type RestPrefetchOptions<TQueryFnData = unknown, TQueryKey extends QueryKey = Qu
 /**
  * 包装后的 prefetchQuery 工具方法
  * 与自定义 useQuery hook 保持一致的数据处理逻辑
+ *
+ * 使用方式：
+ * ```
+ * const queryClient = getQueryClient();
+ * await Promise.all([
+ *   prefetchQuery(queryClient, { queryKey: ['key1'], queryFn: fn1 }),
+ *   prefetchQuery(queryClient, { queryKey: ['key2'], queryFn: fn2 }),
+ * ]);
+ * ```
  */
 export const prefetchQuery = async <TQueryFnData = unknown, TQueryKey extends QueryKey = QueryKey>(
+  queryClient: QueryClient,
   options: RestPrefetchOptions<TQueryFnData, TQueryKey>,
-) => {
-  const queryClient = getQueryClient();
-
+): Promise<void> => {
   await queryClient.prefetchQuery({
     queryKey: options.queryKey,
     queryFn: async (context) => {
@@ -61,6 +69,4 @@ export const prefetchQuery = async <TQueryFnData = unknown, TQueryKey extends Qu
       return result.data as TQueryFnData;
     },
   });
-
-  return queryClient;
 };

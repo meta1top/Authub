@@ -7,7 +7,7 @@ import { syncLocales } from "@meta-1/nest-common";
 import { loadNacosConfig } from "@meta-1/nest-nacos";
 import { AppModule } from "./app.module";
 import { setupSwagger } from "./app.swagger";
-import type { AppConfig } from "./app.types";
+import type { AppConfig } from "./shared/app.types";
 
 // 在最开始加载环境变量
 config({

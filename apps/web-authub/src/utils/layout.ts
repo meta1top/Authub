@@ -1,4 +1,4 @@
-import { profile } from "@/rest/auth";
+import { profile } from "@/rest/account";
 import { common } from "@/rest/config";
 import { getLocale } from "@/utils/locale.server";
 import { getTheme } from "@/utils/theme.server";
