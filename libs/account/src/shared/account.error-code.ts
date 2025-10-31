@@ -5,4 +5,5 @@ export const ErrorCode: Record<string, AppErrorCode> = {
   ACCOUNT_EXISTS: { code: 1001, message: "账号已存在" },
   LOGIN_ERROR: { code: 1002, message: "登录失败" },
   ACCOUNT_CONFIG_NOT_FOUND: { code: 1003, message: "账号配置未找到" },
+  ACCOUNT_NOT_FOUND: { code: 1004, message: "账号未找到" },
 };

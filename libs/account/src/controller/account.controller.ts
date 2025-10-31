@@ -16,7 +16,7 @@ export class AccountController {
 
   @Get("/profile")
   profile(@CurrentUser() user: SessionUser) {
-    return this.accountService.findByUsername(user.username);
+    return this.accountService.findByEmail(user.username);
   }
 
   @Public()

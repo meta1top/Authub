@@ -1,4 +1,3 @@
-export * from "./account.schema";
-export * from "./account.types";
+export * from "./account";
 export * from "./common.types";
 export * from "./regular";

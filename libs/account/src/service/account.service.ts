@@ -1,9 +1,9 @@
-import { Injectable } from "@nestjs/common";
+import { Injectable, Logger } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 import ms from "ms";
 import { Repository } from "typeorm";
 
-import { Token } from "@meta-1/lib-types";
+import { OTPStatus, Token } from "@meta-1/lib-types";
 import { AppError, Cacheable, CacheableService, md5 } from "@meta-1/nest-common";
 import { MailCodeService } from "@meta-1/nest-message";
 import { EncryptService, SessionService, TokenService } from "@meta-1/nest-security";
@@ -15,6 +15,7 @@ import { AccountConfigService } from "./account-config.service";
 @Injectable()
 @CacheableService()
 export class AccountService {
+  private readonly logger = new Logger(AccountService.name);
   constructor(
     private readonly mailCodeService: MailCodeService,
     @InjectRepository(Account) private repository: Repository<Account>,
@@ -75,9 +76,9 @@ export class AccountService {
     };
   }
 
-  @Cacheable({ key: "account:username:#{0}" })
-  async findByUsername(username: string): Promise<Account | null> {
-    return this.repository.findOne({ where: { username, deleted: false } });
+  @Cacheable({ key: "account:email:#{0}" })
+  async findByEmail(email: string): Promise<Account | null> {
+    return this.repository.findOne({ where: { email, deleted: false } });
   }
 
   /**
@@ -85,17 +86,17 @@ export class AccountService {
    * @param username 用户名
    * @returns Account | null
    */
-  async findByUsernameWithPassword(username: string): Promise<Account | null> {
+  async findByEmailWithPassword(email: string): Promise<Account | null> {
     return this.repository
       .createQueryBuilder("account")
       .addSelect("account.password")
-      .where("account.username = :username", { username })
+      .where("account.email = :email", { email })
       .andWhere("account.deleted = :deleted", { deleted: false })
       .getOne();
   }
 
   async login(dto: LoginDto): Promise<Token> {
-    const account = await this.findByUsernameWithPassword(dto.username);
+    const account = await this.findByEmailWithPassword(dto.email);
     if (!account) {
       throw new AppError(ErrorCode.LOGIN_ERROR);
     }
@@ -111,13 +112,13 @@ export class AccountService {
     }
     const token = this.tokenService.create({
       id: account.id,
-      username: account.username,
+      username: account.email,
       expiresIn,
     });
 
     await this.sessionService.login({
       id: account.id,
-      username: account.username,
+      username: account.email,
       jwtToken: token,
       expiresIn,
     });

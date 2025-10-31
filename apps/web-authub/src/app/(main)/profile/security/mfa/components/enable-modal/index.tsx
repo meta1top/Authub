@@ -1,15 +1,13 @@
 import { type FC, useState } from "react";
-import { useAtomValue } from "jotai";
 import { useTranslation } from "react-i18next";
 import { object, string } from "zod";
 
 import { Button, Dialog, Form, FormItem } from "@meta-1/design";
 import { CodeInput } from "@/components/common/input/code";
 import { EmailCodeInput } from "@/components/common/input/email-code";
-import { useMutation } from "@/hooks";
+import { useMutation, useProfile } from "@/hooks";
 import { type SendEmailCodeData, sendEmailCode } from "@/rest/common";
 import { type OTPBindData, otpBind } from "@/rest/profile/security/mfa";
-import { profileState } from "@/state/public";
 import { t } from "@/utils/locale.client";
 import { CODE } from "@/utils/regular";
 import SecretItem from "../secret";
@@ -28,7 +26,7 @@ export const EnableModal: FC<EnableModalProps> = (props) => {
   const [visible, setVisible] = useState(false);
   const { t } = useTranslation();
   const title = t("启用二次验证");
-  const account = useAtomValue(profileState);
+  const account = useProfile();
   const { mutate, isPending } = useMutation({
     mutationFn: otpBind,
     onSuccess: () => {

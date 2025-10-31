@@ -7,21 +7,20 @@ import Link from "next/link";
 import { useTranslation } from "react-i18next";
 
 import { Button, Divider, Form, FormItem, Input, useMessage } from "@meta-1/design";
+import { LoginData, LoginSchema } from "@meta-1/lib-types";
 import { useEncrypt, useMutation } from "@/hooks";
-import { type LoginRestData, login } from "@/rest/account";
-import { type LoginFormData, useSchema } from "@/schema/login";
+import { login } from "@/rest/account";
 import { RestError } from "@/utils/rest";
 import { setToken } from "@/utils/token";
 import { MFADialog } from "./mfa-dialog";
 
 export const LoginPage = () => {
-  const schema = useSchema();
-  const form = Form.useForm<LoginFormData>();
+  const form = Form.useForm<LoginData>();
   const { t } = useTranslation();
   const encrypt = useEncrypt();
   const [loading, setLoading] = useState(false);
   const [visible, setVisible] = useState(false);
-  const [formData, setFormData] = useState<LoginRestData | null>(null);
+  const [formData, setFormData] = useState<LoginData | null>(null);
   const msg = useMessage();
 
   const { mutate, isPending } = useMutation({
@@ -49,7 +48,7 @@ export const LoginPage = () => {
   });
 
   const onSubmit = useCallback(
-    (data: LoginRestData, submitting?: boolean) => {
+    (data: LoginData, submitting?: boolean) => {
       setLoading(isUndefined(submitting) ? true : submitting);
       setFormData(data);
       const cloneData = cloneDeep(data);
@@ -66,9 +65,9 @@ export const LoginPage = () => {
 
   return (
     <div className="flex w-[360px] flex-col gap-md">
-      <Form<LoginFormData> form={form} onSubmit={(data) => onSubmit(data)} schema={schema}>
-        <FormItem label={t("用户名")} name="username">
-          <Input placeholder={t("请输入用户名")} />
+      <Form<LoginData> form={form} onSubmit={(data) => onSubmit(data)} schema={LoginSchema}>
+        <FormItem label={t("邮箱")} name="email">
+          <Input placeholder={t("请输入邮箱")} />
         </FormItem>
         <FormItem label={t("密码")} name="password">
           <Input placeholder={t("请输入密码")} type="password" />
@@ -94,7 +93,7 @@ export const LoginPage = () => {
           {t("Google 登录")}
         </Button>
       </div>
-      <MFADialog<LoginRestData>
+      <MFADialog<LoginData>
         formData={formData}
         isPending={isPending}
         onCancel={onCancel}

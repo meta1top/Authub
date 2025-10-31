@@ -16,8 +16,8 @@
     "url": "https://github.com/zkit-org/packages.git"
   },
   "scripts": {
-    "dev": "next dev -p 3100 --turbopack",
-    "build": "next build --turbopack",
+    "dev": "next dev -p 3100",
+    "build": "next build",
     "start": "next start"
   },
   "type": "module",
@@ -45,8 +45,6 @@
     "tailwindcss": "^3.4.0"
   },
   "devDependencies": {
-    "@types/js-cookie": "3.0.6",
-    "eslint": "^9.38.0",
-    "eslint-config-next": "15.5.6"
+    "@types/js-cookie": "3.0.6"
   }
 }

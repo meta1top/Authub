@@ -5,7 +5,7 @@ import classNames from "classnames";
 import { useAtomValue } from "jotai";
 import { useRouter } from "next/navigation";
 
-import { isLoginState } from "@/state/public";
+import { isLoginState } from "@/state/profile";
 import { useLayoutProps } from "../hooks";
 import { LoadingLayout } from "../loading";
 import { Footer, type FooterProps } from "./footer";

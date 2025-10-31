@@ -1,13 +1,13 @@
 import { type FC, type ReactNode, useCallback, useMemo } from "react";
 import classNames from "classnames";
-import { useAtom } from "jotai/index";
+import { useAtomValue } from "jotai";
 import { Info, Settings } from "lucide-react";
 import Link from "next/link";
 import { useTranslation } from "react-i18next";
 
 import { Action, Button } from "@meta-1/design";
 import Logo from "@/components/common/logo";
-import { isLoginState } from "@/state/public";
+import { isLoginState } from "@/state/profile";
 import { Menus } from "./menus";
 import { Notice } from "./notice";
 import { ProfileMenu } from "./profile-menu";
@@ -22,7 +22,7 @@ export type HeaderProps = {
 
 export const Header: FC<HeaderProps> = (props) => {
   const { logoUrl = "/", appName = "Authub", profileExtra, className, active } = props;
-  const [isLogin] = useAtom(isLoginState);
+  const isLogin = useAtomValue(isLoginState);
   const { t } = useTranslation();
 
   const logo = useMemo(() => {

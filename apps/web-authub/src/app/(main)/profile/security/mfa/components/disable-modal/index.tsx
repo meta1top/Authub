@@ -1,14 +1,12 @@
 import { type FC, useState } from "react";
-import { useAtomValue } from "jotai/index";
 import { useTranslation } from "react-i18next";
 import { object, string } from "zod";
 
 import { Button, Dialog, Form, FormItem } from "@meta-1/design";
 import { EmailCodeInput } from "@/components/common/input/email-code";
-import { useMutation } from "@/hooks";
+import { useMutation, useProfile } from "@/hooks";
 import { type SendEmailCodeData, sendEmailCode } from "@/rest/common";
 import { otpDisable } from "@/rest/profile/security/mfa";
-import { profileState } from "@/state/public";
 import { t } from "@/utils/locale.client";
 import { CODE } from "@/utils/regular";
 
@@ -25,7 +23,7 @@ export const DisableModal: FC<DisableModalProps> = (props) => {
   const { t } = useTranslation();
   const [visible, setVisible] = useState(false);
   const title = t("禁用二次验证");
-  const account = useAtomValue(profileState);
+  const account = useProfile();
   const { mutate, isPending } = useMutation({
     mutationFn: otpDisable,
     onSuccess: () => {

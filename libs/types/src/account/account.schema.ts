@@ -1,6 +1,6 @@
 import { z } from "zod";
 
-import { REGULAR_CODE, REGULAR_PASSWORD } from "./regular";
+import { REGULAR_CODE, REGULAR_PASSWORD } from "../regular";
 
 // 公共基础注册 Schema (email, code, password - 仅非空验证)
 export const BaseRegisterSchema = z.object({
@@ -28,7 +28,7 @@ export const RegisterSchema = BaseRegisterSchema.omit({ password: true }) // 移
 export type RegisterData = z.infer<typeof RegisterSchema>;
 
 export const LoginSchema = z.object({
-  username: z.string().min(1, "请输入用户名").describe("用户名"),
+  email: z.string().email({ message: "邮箱格式不正确" }).describe("邮箱"),
   password: z.string().min(1, "请输入密码").describe("密码"),
 });
 

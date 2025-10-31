@@ -5,18 +5,17 @@ import cloneDeep from "lodash/cloneDeep";
 import { useTranslation } from "react-i18next";
 
 import { Button, Form, FormItem, Input } from "@meta-1/design";
+import { RegisterData, RegisterSchema } from "@meta-1/lib-types";
 import { SendCodeData } from "@meta-1/nest-types";
 import { EmailCodeInput } from "@/components/common/input/email-code";
 import { useEncrypt, useMutation } from "@/hooks";
 import { register } from "@/rest/account";
 import { sendEmailCode } from "@/rest/public";
-import { type RegisterFormData, useSchema } from "@/schema/register";
 import { setToken } from "@/utils/token";
 
 export const RegisterPage = () => {
-  const schema = useSchema();
   const { t } = useTranslation();
-  const [formData, setFormData] = useState<RegisterFormData | undefined>();
+  const [formData, setFormData] = useState<RegisterData | undefined>();
   const encrypt = useEncrypt();
 
   const { mutate, isPending } = useMutation({
@@ -29,7 +28,7 @@ export const RegisterPage = () => {
     },
   });
 
-  const onSubmit = (data: RegisterFormData) => {
+  const onSubmit = (data: RegisterData) => {
     const cloneData = cloneDeep(data);
     cloneData.password2 = "";
     cloneData.password = encrypt(cloneData.password);
@@ -38,10 +37,10 @@ export const RegisterPage = () => {
 
   return (
     <div className="w-[360px]">
-      <Form<RegisterFormData>
+      <Form<RegisterData>
         onSubmit={onSubmit}
-        onValuesChange={(data) => setFormData(data as RegisterFormData)}
-        schema={schema}
+        onValuesChange={(data) => setFormData(data as RegisterData)}
+        schema={RegisterSchema}
       >
         <FormItem label={t("邮箱")} name="email">
           <Input placeholder={t("请输入正确的邮箱")} />

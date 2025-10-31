@@ -1,8 +1,7 @@
 import type { FC } from "react";
-import { useAtomValue } from "jotai";
 
 import { Avatar } from "@meta-1/design";
-import { profileState } from "@/state/public";
+import { useProfile } from "@/hooks";
 
 export type AccountAvatarProps = {
   className?: string;
@@ -10,12 +9,12 @@ export type AccountAvatarProps = {
 
 export const AccountAvatar: FC<AccountAvatarProps> = (props) => {
   const { className } = props;
-  const account = useAtomValue(profileState);
+  const account = useProfile();
   return <Avatar alt="cover" className={className} src={account?.avatar ?? "/assets/image/avatar.jpeg"} />;
 };
 
 export const AccountInfo = () => {
-  const account = useAtomValue(profileState);
+  const account = useProfile();
   return (
     <div className="flex w-full items-center justify-start gap-3 p-2">
       <AccountAvatar className="size-10" />

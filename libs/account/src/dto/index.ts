@@ -1,7 +1,2 @@
-import { createZodDto } from "nestjs-zod";
-
-import { BaseRegisterSchema, LoginSchema } from "@meta-1/lib-types";
-
-export class RegisterDto extends createZodDto(BaseRegisterSchema) {}
-
-export class LoginDto extends createZodDto(LoginSchema) {}
+export * from "./account.dto";
+export * from "./account-otp.dto";
