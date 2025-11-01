@@ -3,11 +3,12 @@ import { useTranslation } from "react-i18next";
 import { object, string } from "zod";
 
 import { Button, Dialog, Form, FormItem } from "@meta-1/design";
+import { OTPEnable } from "@meta-1/lib-types";
 import { CodeInput } from "@/components/common/input/code";
 import { EmailCodeInput } from "@/components/common/input/email-code";
 import { useMutation, useProfile } from "@/hooks";
 import { type SendEmailCodeData, sendEmailCode } from "@/rest/common";
-import { type OTPBindData, otpBind } from "@/rest/profile/security/mfa";
+import { otpEnable } from "@/rest/profile/security/mfa";
 import { t } from "@/utils/locale.client";
 import { CODE } from "@/utils/regular";
 import SecretItem from "../secret";
@@ -28,7 +29,7 @@ export const EnableModal: FC<EnableModalProps> = (props) => {
   const title = t("启用二次验证");
   const account = useProfile();
   const { mutate, isPending } = useMutation({
-    mutationFn: otpBind,
+    mutationFn: otpEnable,
     onSuccess: () => {
       setVisible(false);
       props.onSuccess?.();
@@ -41,7 +42,7 @@ export const EnableModal: FC<EnableModalProps> = (props) => {
         {title}
       </button>
       <Dialog maskClosable={false} onCancel={() => setVisible(false)} title={title} visible={visible}>
-        <Form<OTPBindData> onSubmit={(data) => mutate(data)} schema={getSchema()}>
+        <Form<OTPEnable> onSubmit={(data) => mutate(data)} schema={getSchema()}>
           <SecretItem />
           <FormItem
             label={t("邮箱验证码（{{email}}）", {

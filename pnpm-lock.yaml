@@ -47,17 +47,17 @@ importers:
         specifier: 0.0.4
         version: 0.0.4(@nestjs/common@11.1.8(class-validator@0.14.2)(reflect-metadata@0.2.2)(rxjs@7.8.2))(@nestjs/platform-express@11.1.8)(ioredis@5.8.2)(nestjs-i18n@10.5.1(@nestjs/common@11.1.8(class-validator@0.14.2)(reflect-metadata@0.2.2)(rxjs@7.8.2))(@nestjs/core@11.1.8)(class-validator@0.14.2)(rxjs@7.8.2))
       '@meta-1/nest-message':
-        specifier: 0.0.6
-        version: 0.0.6(@nestjs/common@11.1.8(class-validator@0.14.2)(reflect-metadata@0.2.2)(rxjs@7.8.2))(@nestjs/swagger@11.2.1(@nestjs/common@11.1.8(class-validator@0.14.2)(reflect-metadata@0.2.2)(rxjs@7.8.2))(@nestjs/core@11.1.8)(class-validator@0.14.2)(reflect-metadata@0.2.2))(rxjs@7.8.2)
+        specifier: 0.0.7
+        version: 0.0.7(@nestjs/common@11.1.8(class-validator@0.14.2)(reflect-metadata@0.2.2)(rxjs@7.8.2))(@nestjs/swagger@11.2.1(@nestjs/common@11.1.8(class-validator@0.14.2)(reflect-metadata@0.2.2)(rxjs@7.8.2))(@nestjs/core@11.1.8)(class-validator@0.14.2)(reflect-metadata@0.2.2))(rxjs@7.8.2)
       '@meta-1/nest-nacos':
         specifier: 0.0.4
         version: 0.0.4(@nestjs/common@11.1.8(class-validator@0.14.2)(reflect-metadata@0.2.2)(rxjs@7.8.2))(@nestjs/config@4.0.2(@nestjs/common@11.1.8(class-validator@0.14.2)(reflect-metadata@0.2.2)(rxjs@7.8.2))(rxjs@7.8.2))
       '@meta-1/nest-security':
-        specifier: 0.0.4
-        version: 0.0.4(@nestjs/common@11.1.8(class-validator@0.14.2)(reflect-metadata@0.2.2)(rxjs@7.8.2))(@nestjs/platform-express@11.1.8)(ioredis@5.8.2)(nestjs-i18n@10.5.1(@nestjs/common@11.1.8(class-validator@0.14.2)(reflect-metadata@0.2.2)(rxjs@7.8.2))(@nestjs/core@11.1.8)(class-validator@0.14.2)(rxjs@7.8.2))
+        specifier: 0.0.6
+        version: 0.0.6(@nestjs/common@11.1.8(class-validator@0.14.2)(reflect-metadata@0.2.2)(rxjs@7.8.2))(@nestjs/platform-express@11.1.8)(ioredis@5.8.2)(nestjs-i18n@10.5.1(@nestjs/common@11.1.8(class-validator@0.14.2)(reflect-metadata@0.2.2)(rxjs@7.8.2))(@nestjs/core@11.1.8)(class-validator@0.14.2)(rxjs@7.8.2))
       '@meta-1/nest-types':
-        specifier: 0.0.5
-        version: 0.0.5(zod@3.25.76)
+        specifier: 0.0.6
+        version: 0.0.6(zod@3.25.76)
       '@nestjs-modules/ioredis':
         specifier: ^2.0.2
         version: 2.0.2(@nestjs/common@11.1.8(class-validator@0.14.2)(reflect-metadata@0.2.2)(rxjs@7.8.2))(@nestjs/core@11.1.8)(@nestjs/typeorm@11.0.0(@nestjs/common@11.1.8(class-validator@0.14.2)(reflect-metadata@0.2.2)(rxjs@7.8.2))(@nestjs/core@11.1.8)(reflect-metadata@0.2.2)(rxjs@7.8.2)(typeorm@0.3.27(babel-plugin-macros@3.1.0)(ioredis@5.8.2)(mysql2@3.15.3)(reflect-metadata@0.2.2)(ts-node@10.9.2(@types/node@22.18.12)(typescript@5.9.3))))(ioredis@5.8.2)(reflect-metadata@0.2.2)(rxjs@7.8.2)(typeorm@0.3.27(babel-plugin-macros@3.1.0)(ioredis@5.8.2)(mysql2@3.15.3)(reflect-metadata@0.2.2)(ts-node@10.9.2(@types/node@22.18.12)(typescript@5.9.3)))
@@ -2006,8 +2006,8 @@ packages:
       ioredis: ^5.8.0
       nestjs-i18n: ^10.5.0
 
-  '@meta-1/nest-message@0.0.6':
-    resolution: {integrity: sha512-yklVPngWEMFcs0T7ai5p8ReqUBBh6gvzVhxes4W7h7k+AnZeZ7wpVzV/EihKzttyksUOlhJ8fB+Hl/DRWdNPWw==}
+  '@meta-1/nest-message@0.0.7':
+    resolution: {integrity: sha512-5LKZ9Bxc4zyPYKZs+fKcnd5e593Ve0jtl/ftAt6bdFjIjntmj5hPHJP0F8JXufxVI0dwaztHYlnc62MV+yluMg==}
     peerDependencies:
       '@nestjs/common': ^11.0.0
 
@@ -2017,16 +2017,16 @@ packages:
       '@nestjs/common': ^11.0.0
       '@nestjs/config': ^4.0.0
 
-  '@meta-1/nest-security@0.0.4':
-    resolution: {integrity: sha512-eR8vseb0sYlW9dFYohTDuw9GLRjWzlzpsNABc/lQwUfux9ZpNj3HYqUjlb+zzxWLX6aVCcbVeegce7mg9idKdA==}
+  '@meta-1/nest-security@0.0.6':
+    resolution: {integrity: sha512-9oceNbWcwXMfioMrZCzntPYXUhMWGrh10q2SdqkjDOmbGrqDDjdidlpA2IHS9bbGHf1T/Jh+hUkpBuA/hnJW9w==}
     peerDependencies:
       '@nestjs/common': ^11.0.0
       '@nestjs/platform-express': ^11.0.0
       ioredis: ^5.8.0
       nestjs-i18n: ^10.5.0
 
-  '@meta-1/nest-types@0.0.5':
-    resolution: {integrity: sha512-1G4IPdOhCbXpt7FL2o+Z2qaL2SQ9x6X+Zk2O/lmsavQXqgnnDl1R9Y8jDP3F5VRkzDdVLl8AYfROLJjM6QK1kg==}
+  '@meta-1/nest-types@0.0.6':
+    resolution: {integrity: sha512-Jye3whXq0yZ3JWUujB9hsgGmcfk6dc0SYVSWkLk3WhwVJMguemIVBAR3fMVV1VYZFtCTHmqtFRTnMCsuy8vMmg==}
     peerDependencies:
       zod: 3.25.76
 
@@ -11088,7 +11088,7 @@ snapshots:
       ioredis: 5.8.2
       nestjs-i18n: 10.5.1(@nestjs/common@11.1.8(class-validator@0.14.2)(reflect-metadata@0.2.2)(rxjs@7.8.2))(@nestjs/core@11.1.8)(class-validator@0.14.2)(rxjs@7.8.2)
 
-  '@meta-1/nest-message@0.0.6(@nestjs/common@11.1.8(class-validator@0.14.2)(reflect-metadata@0.2.2)(rxjs@7.8.2))(@nestjs/swagger@11.2.1(@nestjs/common@11.1.8(class-validator@0.14.2)(reflect-metadata@0.2.2)(rxjs@7.8.2))(@nestjs/core@11.1.8)(class-validator@0.14.2)(reflect-metadata@0.2.2))(rxjs@7.8.2)':
+  '@meta-1/nest-message@0.0.7(@nestjs/common@11.1.8(class-validator@0.14.2)(reflect-metadata@0.2.2)(rxjs@7.8.2))(@nestjs/swagger@11.2.1(@nestjs/common@11.1.8(class-validator@0.14.2)(reflect-metadata@0.2.2)(rxjs@7.8.2))(@nestjs/core@11.1.8)(class-validator@0.14.2)(reflect-metadata@0.2.2))(rxjs@7.8.2)':
     dependencies:
       '@alicloud/dm20151123': 1.7.0
       '@alicloud/openapi-client': 0.4.15
@@ -11112,7 +11112,7 @@ snapshots:
       - proxy-agent
       - supports-color
 
-  '@meta-1/nest-security@0.0.4(@nestjs/common@11.1.8(class-validator@0.14.2)(reflect-metadata@0.2.2)(rxjs@7.8.2))(@nestjs/platform-express@11.1.8)(ioredis@5.8.2)(nestjs-i18n@10.5.1(@nestjs/common@11.1.8(class-validator@0.14.2)(reflect-metadata@0.2.2)(rxjs@7.8.2))(@nestjs/core@11.1.8)(class-validator@0.14.2)(rxjs@7.8.2))':
+  '@meta-1/nest-security@0.0.6(@nestjs/common@11.1.8(class-validator@0.14.2)(reflect-metadata@0.2.2)(rxjs@7.8.2))(@nestjs/platform-express@11.1.8)(ioredis@5.8.2)(nestjs-i18n@10.5.1(@nestjs/common@11.1.8(class-validator@0.14.2)(reflect-metadata@0.2.2)(rxjs@7.8.2))(@nestjs/core@11.1.8)(class-validator@0.14.2)(rxjs@7.8.2))':
     dependencies:
       '@nestjs/common': 11.1.8(class-validator@0.14.2)(reflect-metadata@0.2.2)(rxjs@7.8.2)
       '@nestjs/platform-express': 11.1.8(@nestjs/common@11.1.8(class-validator@0.14.2)(reflect-metadata@0.2.2)(rxjs@7.8.2))(@nestjs/core@11.1.8)
@@ -11123,7 +11123,7 @@ snapshots:
       node-forge: 1.3.1
       reflect-metadata: 0.2.2
 
-  '@meta-1/nest-types@0.0.5(zod@3.25.76)':
+  '@meta-1/nest-types@0.0.6(zod@3.25.76)':
     dependencies:
       zod: 3.25.76
 

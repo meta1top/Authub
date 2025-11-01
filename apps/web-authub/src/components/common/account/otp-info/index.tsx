@@ -58,7 +58,7 @@ export const OtpInfo: FC<OtpInfoProps> = (props) => {
           <div className="h-[150px] w-[150px] bg-secondary" />
         )}
       </div>
-      <div className="my-2 flex items-center justify-center bg-secondary px-3 py-1 text-sm">
+      <div className="my-2 flex items-center justify-center break-all bg-secondary px-3 py-1 text-sm">
         {secret || "--"}
         <CopyToClipboard onCopy={onCopy} text={secret || ""}>
           <CopyIcon className="ml-[10px]" />

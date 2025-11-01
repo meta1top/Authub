@@ -1,12 +1,6 @@
-import { useCallback } from "react";
-
 import { Dialog, type DialogProps, Loading } from "@meta-1/design";
 import { OTPInput } from "@/components/common/input/otp";
 import { t } from "@/utils/locale.client";
-
-type FormData = {
-  code: string;
-};
 
 export type MFADialogProps<T> = DialogProps & {
   onSubmit: (values: T, submitting?: boolean) => void;
@@ -16,19 +10,6 @@ export type MFADialogProps<T> = DialogProps & {
 
 export const MFADialog = <T = unknown>(props: MFADialogProps<T>) => {
   const { visible, onCancel, formData, onSubmit, isPending, ...rest } = props;
-
-  const onSubmitWrapper = useCallback(
-    (data: FormData) => {
-      onSubmit(
-        {
-          ...formData!,
-          ...data,
-        },
-        false,
-      );
-    },
-    [formData, onSubmit],
-  );
 
   return (
     <Dialog
@@ -42,9 +23,9 @@ export const MFADialog = <T = unknown>(props: MFADialogProps<T>) => {
       <Loading loading={isPending}>
         <div className="flex flex-col items-center gap-2">
           <OTPInput
-            onChange={(code) => {
-              if (code.length === 6) {
-                onSubmitWrapper({ code });
+            onChange={(otpCode) => {
+              if (otpCode.length === 6) {
+                onSubmit({ ...formData!, otpCode });
               }
             }}
           />

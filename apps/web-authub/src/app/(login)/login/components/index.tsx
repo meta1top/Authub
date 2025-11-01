@@ -36,7 +36,7 @@ export const LoginPage = () => {
       setLoading(false);
       if (error instanceof RestError) {
         const { code, message } = error;
-        if (code === 10001) {
+        if (code === 1008) {
           setVisible(true);
         } else {
           msg.error(message);

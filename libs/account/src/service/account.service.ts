@@ -3,10 +3,10 @@ import { InjectRepository } from "@nestjs/typeorm";
 import ms from "ms";
 import { Repository } from "typeorm";
 
-import { OTPStatus, Token } from "@meta-1/lib-types";
+import { Token } from "@meta-1/lib-types";
 import { AppError, Cacheable, CacheableService, md5 } from "@meta-1/nest-common";
 import { MailCodeService } from "@meta-1/nest-message";
-import { EncryptService, SessionService, TokenService } from "@meta-1/nest-security";
+import { EncryptService, OTPService, SessionService, TokenService } from "@meta-1/nest-security";
 import { LoginDto, RegisterDto } from "../dto";
 import { Account } from "../entity";
 import { ErrorCode } from "../shared";
@@ -17,12 +17,13 @@ import { AccountConfigService } from "./account-config.service";
 export class AccountService {
   private readonly logger = new Logger(AccountService.name);
   constructor(
-    private readonly mailCodeService: MailCodeService,
     @InjectRepository(Account) private repository: Repository<Account>,
+    private readonly mailCodeService: MailCodeService,
     private readonly encryptService: EncryptService,
     private readonly tokenService: TokenService,
     private readonly sessionService: SessionService,
     private readonly accountConfigService: AccountConfigService,
+    private readonly otpService: OTPService,
   ) {}
 
   async register(dto: RegisterDto): Promise<Token> {
@@ -76,7 +77,7 @@ export class AccountService {
     };
   }
 
-  @Cacheable({ key: "account:email:#{0}" })
+  @Cacheable({ key: "account:#{0}" })
   async findByEmail(email: string): Promise<Account | null> {
     return this.repository.findOne({ where: { email, deleted: false } });
   }
@@ -99,6 +100,17 @@ export class AccountService {
     const account = await this.findByEmailWithPassword(dto.email);
     if (!account) {
       throw new AppError(ErrorCode.LOGIN_ERROR);
+    }
+
+    // 如果账号开启了OTP，则需要验证OTP
+    if (account.otpStatus === 1) {
+      if (!dto.otpCode) {
+        throw new AppError(ErrorCode.OTP_CODE_REQUIRED);
+      }
+      const isValid = await this.otpService.check(account.email, dto.otpCode);
+      if (!isValid) {
+        throw new AppError(ErrorCode.OTP_CODE_INVALID);
+      }
     }
     // 获取配置
     const config = this.accountConfigService.get();

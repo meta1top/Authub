@@ -1,8 +1,8 @@
-import { Controller, Get } from "@nestjs/common";
+import { Body, Controller, Get, Post } from "@nestjs/common";
 import { ApiOperation, ApiResponse, ApiTags } from "@nestjs/swagger";
 
 import { CurrentUser, type SessionUser } from "@meta-1/nest-security";
-import { OTPSecretDto, OTPStatusDto } from "../dto";
+import { OTPDisableDto, OTPEnableDto, OTPSecretDto, OTPStatusDto } from "../dto";
 import { AccountOTPService } from "../service";
 
 @ApiTags("AccountOTPController")
@@ -30,5 +30,17 @@ export class AccountOTPController {
   })
   secret(@CurrentUser() user: SessionUser) {
     return this.accountOTPService.secret(user.id);
+  }
+
+  @Post("/enable")
+  @ApiOperation({ summary: "启用 OTP" })
+  enable(@CurrentUser() user: SessionUser, @Body() body: OTPEnableDto) {
+    return this.accountOTPService.enable(user.username, body);
+  }
+
+  @Post("/disable")
+  @ApiOperation({ summary: "禁用 OTP" })
+  disable(@CurrentUser() user: SessionUser, @Body() body: OTPDisableDto) {
+    return this.accountOTPService.disable(user.username, body);
   }
 }
