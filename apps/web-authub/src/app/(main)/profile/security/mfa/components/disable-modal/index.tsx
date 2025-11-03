@@ -3,10 +3,11 @@ import { useTranslation } from "react-i18next";
 import { object, string } from "zod";
 
 import { Button, Dialog, Form, FormItem } from "@meta-1/design";
+import { SendCodeData } from "@meta-1/nest-types";
 import { EmailCodeInput } from "@/components/common/input/email-code";
 import { useMutation, useProfile } from "@/hooks";
-import { type SendEmailCodeData, sendEmailCode } from "@/rest/common";
 import { otpDisable } from "@/rest/profile/security/mfa";
+import { sendEmailCode } from "@/rest/public";
 import { t } from "@/utils/locale.client";
 import { CODE } from "@/utils/regular";
 
@@ -45,7 +46,7 @@ export const DisableModal: FC<DisableModalProps> = (props) => {
             })}
             name="code"
           >
-            <EmailCodeInput<SendEmailCodeData>
+            <EmailCodeInput<SendCodeData>
               api={sendEmailCode}
               data={{ action: "otp-disable", email: account?.email ?? "" }}
               placeholder={t("请输入邮箱验证码")}

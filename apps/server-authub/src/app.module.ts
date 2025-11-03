@@ -76,7 +76,7 @@ export class AppModule {
     } else {
       logger.warn("Redis config not found, skipping Redis initialization");
     }
-
+ 
     return {
       module: AppModule,
       imports: [...imports, CommonModule, MessageModule, SecurityModule, AccountModule],

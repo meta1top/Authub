@@ -129,7 +129,9 @@
     "tsx": "4.16.2",
     "typescript": "^5.7.3",
     "unescape-js": "1.1.4",
-    "vite-plugin-static-copy": "^2.0.0"
+    "vite-plugin-static-copy": "^2.0.0",
+    "class-transformer": "^0.5.1",
+    "class-validator": "^0.14.0"
   },
   "jest": {
     "moduleFileExtensions": [
@@ -152,9 +154,9 @@
       "<rootDir>/libs/"
     ],
     "moduleNameMapper": {
-      "^@meta-1/account(|/.*)$": "<rootDir>/libs/account/src/$1",
-      "^@meta-1/lib-/security(|/.*)$": "<rootDir>/libs/security/src/$1",
-      "^@meta-1/types(|/.*)$": "<rootDir>/libs/types/src/$1"
+      "^@meta-1/lib-account(|/.*)$": "<rootDir>/libs/account/src/$1",
+      "^@meta-1/lib-security(|/.*)$": "<rootDir>/libs/security/src/$1",
+      "^@meta-1/lib-types(|/.*)$": "<rootDir>/libs/types/src/$1"
     }
   },
   "resolutions": {

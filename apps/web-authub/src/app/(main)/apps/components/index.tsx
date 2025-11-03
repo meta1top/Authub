@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { FC, PropsWithChildren, useMemo, useState } from "react";
 import { keepPreviousData } from "@tanstack/react-query";
 import { useTranslation } from "react-i18next";
 
@@ -16,6 +16,10 @@ import { list } from "@/rest/app";
 import { AddButton } from "./add/button";
 import { AppItem } from "./item";
 import { AppItemLoading } from "./item/loading";
+
+const ListContainer: FC<PropsWithChildren> = (props) => {
+  return <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">{props.children}</div>;
+};
 
 export const AppsPage = () => {
   useLayoutConfig<MainLayoutProps>({
@@ -43,16 +47,24 @@ export const AppsPage = () => {
         <TitleBar actions={actions} title={title} />
       </PageHeader>
       <div className="container flex flex-col gap-md">
-        <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
-          {isLoading ? (
-            [1, 2, 3].map((item) => <AppItemLoading key={item} />)
-          ) : apps.length > 0 ? (
-            apps.map((app) => <AppItem app={app} key={app.id} />)
-          ) : (
-            <Empty text={t("暂无应用")} />
-          )}
-        </div>
-        <Pagination onChange={setPage} onSizeChange={setSize} page={page} size={size} total={data?.total ?? 0} />
+        {isLoading ? (
+          <ListContainer>
+            {[1, 2, 3].map((item) => (
+              <AppItemLoading key={item} />
+            ))}
+          </ListContainer>
+        ) : apps.length > 0 ? (
+          <>
+            <ListContainer>
+              {apps.map((app) => (
+                <AppItem app={app} key={app.id} />
+              ))}
+            </ListContainer>
+            <Pagination onChange={setPage} onSizeChange={setSize} page={page} size={size} total={data?.total ?? 0} />
+          </>
+        ) : (
+          <Empty text={t("暂无应用")} />
+        )}
       </div>
     </MainPage>
   );

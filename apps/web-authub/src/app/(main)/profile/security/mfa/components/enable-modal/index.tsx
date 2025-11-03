@@ -4,11 +4,12 @@ import { object, string } from "zod";
 
 import { Button, Dialog, Form, FormItem } from "@meta-1/design";
 import { OTPEnable } from "@meta-1/lib-types";
+import { SendCodeData } from "@meta-1/nest-types";
 import { CodeInput } from "@/components/common/input/code";
 import { EmailCodeInput } from "@/components/common/input/email-code";
 import { useMutation, useProfile } from "@/hooks";
-import { type SendEmailCodeData, sendEmailCode } from "@/rest/common";
 import { otpEnable } from "@/rest/profile/security/mfa";
+import { sendEmailCode } from "@/rest/public";
 import { t } from "@/utils/locale.client";
 import { CODE } from "@/utils/regular";
 import SecretItem from "../secret";
@@ -50,7 +51,7 @@ export const EnableModal: FC<EnableModalProps> = (props) => {
             })}
             name="code"
           >
-            <EmailCodeInput<SendEmailCodeData>
+            <EmailCodeInput<SendCodeData>
               api={sendEmailCode}
               data={{ action: "otp-enable", email: account?.email ?? "" }}
               placeholder={t("请输入邮箱验证码")}
