@@ -8,11 +8,12 @@ import { AcceptLanguageResolver, HeaderResolver, I18nJsonLoader, I18nModule, Que
 import { SnakeNamingStrategy } from "typeorm-naming-strategies";
 
 import { AccountModule, AuthGuard } from "@meta-1/lib-account";
+import { AssetsModule } from "@meta-1/nest-assets";
 import { CommonModule } from "@meta-1/nest-common";
 import { MessageModule } from "@meta-1/nest-message";
 import { NacosModule } from "@meta-1/nest-nacos";
 import { SecurityModule } from "@meta-1/nest-security";
-import { AppController, ConfigController } from "./controller";
+import { AppController, AssetsController, ConfigController, MailCodeController } from "./controller";
 import type { AppConfig } from "./shared";
 
 @Module({})
@@ -24,7 +25,7 @@ export class AppModule {
       DiscoveryModule,
       ConfigModule.forRoot({
         isGlobal: true,
-        envFilePath: "apps/server-authub/.env",
+        envFilePath: "apps/server/.env",
       }),
       I18nModule.forRoot({
         fallbackLanguage: "zh-CN",
@@ -76,11 +77,11 @@ export class AppModule {
     } else {
       logger.warn("Redis config not found, skipping Redis initialization");
     }
- 
+
     return {
       module: AppModule,
-      imports: [...imports, CommonModule, MessageModule, SecurityModule, AccountModule],
-      controllers: [AppController, ConfigController],
+      imports: [...imports, CommonModule, MessageModule, SecurityModule, AssetsModule, AccountModule],
+      controllers: [AppController, AssetsController, ConfigController, MailCodeController],
       providers: [
         {
           provide: APP_GUARD,

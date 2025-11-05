@@ -11,7 +11,7 @@ import type { AppConfig } from "./shared/app.types";
 
 // 在最开始加载环境变量
 config({
-  path: path.join(process.cwd(), "apps/server-authub/.env"),
+  path: path.join(process.cwd(), "apps/server/.env"),
 });
 
 async function bootstrap() {
@@ -21,7 +21,7 @@ async function bootstrap() {
   logger.log(`Syncing locales in ${isDevelopment ? "development" : "production"} mode`);
   syncLocales({
     sourceDir: path.join(process.cwd(), "locales"),
-    targetDir: path.join(process.cwd(), "dist/apps/server-authub/i18n"),
+    targetDir: path.join(process.cwd(), "dist/apps/server/i18n"),
     watch: isDevelopment,
   });
   const nacosConfig = await loadNacosConfig<AppConfig>();

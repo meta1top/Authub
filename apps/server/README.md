@@ -1,19 +1,23 @@
-# Server Demo - NestJS 演示服务
+# AuthHub Server - 统一授权后端服务
 
-基于 NestJS 11 构建的演示后端服务，集成了 Nacos 配置管理、Redis 缓存、TypeORM、国际化等企业级功能。
+基于 NestJS 11 构建的统一用户授权和身份管理后端服务，提供完整的用户认证、授权和管理功能。
 
 ## ✨ 特性
 
+- 🔐 **用户认证** - 登录、注册、密码重置
+- 🔑 **Token 管理** - JWT Token 生成和验证
+- 👥 **账号管理** - 用户信息、权限管理
+- 🔒 **OTP 支持** - 双因素认证（2FA）
+- 📧 **邮件服务** - 验证码发送、通知邮件
+- ☁️ **资源管理** - 文件上传、头像存储（S3/OSS）
 - 🏗️ **NestJS 框架** - 企业级 Node.js 框架
 - ⚙️ **Nacos 集成** - 配置管理和服务发现
-- 💾 **Redis 缓存** - 高性能缓存支持
+- 💾 **Redis 缓存** - 高性能缓存和会话存储
 - 🗄️ **TypeORM** - 数据库 ORM 支持
 - 🌍 **国际化** - 多语言支持（中英文）
 - 📝 **Swagger 文档** - 自动生成 API 文档
 - 🔒 **类型安全** - 完整的 TypeScript 支持
 - ⚡ **统一响应** - 标准化的 API 响应格式
-- 🚨 **错误处理** - 全局异常过滤器
-- ❄️ **分布式 ID** - Snowflake ID 生成器
 
 ## 🚀 快速开始
 
@@ -34,46 +38,73 @@ pnpm install
 
 ### 环境变量配置
 
-在项目根目录创建 `.env` 文件：
+在 `apps/server/.env` 文件中配置：
 
 ```env
 # 应用配置
 NODE_ENV=development
 PORT=3100
 
-# Nacos 配置（可选，不配置则跳过）
+# Nacos 配置（必需）
 NACOS_SERVER=localhost:8848
-NACOS_NAMESPACE=public
-NACOS_USERNAME=nacos
-NACOS_PASSWORD=nacos
-NACOS_DATA_ID=app-config
-NACOS_GROUP=DEFAULT_GROUP
+APP_NAME=authub-server
+```
+
+**注意：** 只有以上环境变量需要在 `.env` 文件中配置，其他所有配置（数据库、Redis、账号配置等）都通过 Nacos 配置中心管理。
+
+### Nacos 配置
+
+在 Nacos 配置中心创建配置，Data ID 为 `authub-server`，配置格式为 YAML：
+
+```yaml
+# 数据库配置
+database:
+  host: localhost
+  port: 3306
+  username: root
+  password: your-password
+  database: authub
+  synchronize: false  # 生产环境设为 false
+  logging: false
 
 # Redis 配置
-REDIS_HOST=localhost
-REDIS_PORT=6379
-REDIS_PASSWORD=
+redis:
+  host: localhost
+  port: 6379
+  password: ""
+  db: 0
 
-# 数据库配置
-DB_TYPE=mysql
-DB_HOST=localhost
-DB_PORT=3306
-DB_USERNAME=root
-DB_PASSWORD=
-DB_DATABASE=demo
+# 账号配置
+account:
+  rsa:
+    privateKey: |
+      -----BEGIN RSA PRIVATE KEY-----
+      your-private-key
+      -----END RSA PRIVATE KEY-----
+    publicKey: |
+      -----BEGIN PUBLIC KEY-----
+      your-public-key
+      -----END PUBLIC KEY-----
+  jwt:
+    secret: your-jwt-secret
+    expiresIn: 7d
+  otp:
+    issuer: AuthHub
 ```
+
+**说明：** 应用启动时会从 Nacos 加载配置，根据 `AppConfig` 类型声明自动注入。如果 Nacos 不可用，服务会以降级模式启动（跳过数据库和 Redis 初始化）。
 
 ### 启动服务
 
 ```bash
 # 开发模式（监听文件变化）
-pnpm run dev:server-demo
+pnpm run dev:server
 
 # 生产模式构建
-pnpm run build:server-demo
+pnpm run build:server
 
 # 启动生产服务
-pnpm run start:server-demo
+pnpm run start:server
 ```
 
 服务将在 http://localhost:3100 启动。
@@ -99,22 +130,37 @@ pnpm run start:server-demo
 - **@meta-1/nest-nacos** - Nacos 集成
 - **@nestjs/config** - 配置管理
 
+### 业务库
+- **@meta-1/lib-account** - 账号管理核心模块
+- **@meta-1/lib-types** - 类型定义
+
 ### 工具库
 - **@meta-1/nest-common** - 通用工具和装饰器
+- **@meta-1/nest-security** - 安全认证模块
+- **@meta-1/nest-message** - 邮件服务
+- **@meta-1/nest-assets** - 资源管理
+- **@meta-1/nest-nacos** - Nacos 集成
 - **nestjs-i18n** - 国际化支持
 - **@nestjs/swagger** - API 文档生成
 - **nestjs-zod** - 数据验证
-- **dotenv** - 环境变量管理
 
 ## 🗂️ 项目结构
 
 ```
-apps/server-demo/
+apps/server/
 ├── src/
-│   ├── app.controller.ts      # 主控制器
+│   ├── controller/            # 控制器
+│   │   ├── app.controller.ts      # 应用控制器
+│   │   ├── assets.controller.ts   # 资源控制器
+│   │   ├── config.controller.ts   # 配置控制器
+│   │   └── mail-code.controller.ts # 邮件验证码控制器
+│   ├── dto/                   # 数据传输对象
+│   │   └── config.dto.ts
+│   ├── shared/                # 共享模块
+│   │   ├── app.error-code.ts     # 错误码定义
+│   │   └── app.types.ts          # 类型定义
 │   ├── app.module.ts          # 主模块
 │   ├── app.swagger.ts         # Swagger 配置
-│   ├── app.types.ts           # 类型定义
 │   └── main.ts                # 应用入口
 └── tsconfig.app.json          # TypeScript 配置
 ```
@@ -170,43 +216,81 @@ export class UserService {
 
 ### Nacos 配置管理
 
-在 `main.ts` 中加载 Nacos 配置：
+应用启动流程：
 
 ```typescript
+// main.ts
 import { loadNacosConfig } from '@meta-1/nest-nacos';
+import type { AppConfig } from './shared/app.types';
 
 async function bootstrap() {
-  // 加载 Nacos 配置
+  // 1. 从 Nacos 加载配置（根据 AppConfig 类型声明）
   const nacosConfig = await loadNacosConfig<AppConfig>();
   
-  // 创建应用
+  // 2. 创建应用，传入配置
   const app = await NestFactory.create(AppModule.forRoot(nacosConfig));
   
-  await app.listen(3100);
+  await app.listen(process.env.PORT ?? 3100);
 }
 ```
 
-在模块中注册 Nacos：
+AppConfig 类型定义：
 
 ```typescript
-import { NacosModule } from '@meta-1/nest-nacos';
-
-@Module({
-  imports: [
-    NacosModule.forRoot({
-      server: process.env.NACOS_SERVER,
-      namespace: process.env.NACOS_NAMESPACE,
-      username: process.env.NACOS_USERNAME,
-      password: process.env.NACOS_PASSWORD,
-      config: {
-        dataId: process.env.NACOS_DATA_ID,
-        group: process.env.NACOS_GROUP,
-      },
-    }),
-  ],
-})
-export class AppModule {}
+// shared/app.types.ts
+export type AppConfig = {
+  database: DatabaseConfig;  // 数据库配置
+  redis: RedisConfig;         // Redis 配置
+  account: AccountConfig;     // 账号配置（RSA、JWT、OTP）
+};
 ```
+
+模块配置：
+
+```typescript
+// app.module.ts
+@Module({})
+export class AppModule {
+  static forRoot(preloadedConfig: AppConfig | null): DynamicModule {
+    const imports = [
+      // Nacos 模块（只需要环境变量）
+      NacosModule.forRoot({
+        server: process.env.NACOS_SERVER!,
+        naming: {
+          serviceName: process.env.APP_NAME!,
+        },
+        config: {
+          dataId: process.env.APP_NAME!,
+        },
+      }),
+    ];
+
+    // 使用 Nacos 配置初始化数据库
+    if (preloadedConfig?.database) {
+      imports.push(
+        TypeOrmModule.forRoot({
+          type: 'mysql',
+          ...preloadedConfig.database,
+        })
+      );
+    }
+
+    // 使用 Nacos 配置初始化 Redis
+    if (preloadedConfig?.redis) {
+      imports.push(RedisModule.forRoot(preloadedConfig.redis));
+    }
+
+    return { module: AppModule, imports };
+  }
+}
+```
+
+**配置优势：**
+- ✅ 集中式配置管理
+- ✅ 配置热更新（Nacos 支持）
+- ✅ 环境隔离（通过 namespace）
+- ✅ 配置版本管理
+- ✅ 降级支持（Nacos 不可用时以降级模式启动）
 
 ### 统一响应格式
 
@@ -366,15 +450,15 @@ pnpm run format
 ### 构建生产版本
 
 ```bash
-pnpm run build:server-demo
+pnpm run build:server
 ```
 
-构建文件将输出到 `dist/apps/server-demo/` 目录。
+构建文件将输出到 `dist/apps/server/` 目录。
 
 ### 运行生产版本
 
 ```bash
-pnpm run start:server-demo
+pnpm run start:server
 ```
 
 ### Docker 部署（可选）
@@ -390,11 +474,11 @@ COPY package.json pnpm-lock.yaml ./
 RUN npm install -g pnpm && pnpm install
 
 COPY . .
-RUN pnpm run build:server-demo
+RUN pnpm run build:server
 
 EXPOSE 3100
 
-CMD ["node", "dist/apps/server-demo/main.js"]
+CMD ["node", "dist/apps/server/main.js"]
 ```
 
 ## 📖 API 文档
