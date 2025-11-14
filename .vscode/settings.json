@@ -46,7 +46,8 @@
 		"esbuild",
 		"alicloud",
 		"sesv2",
-		"prosemirror"
+		"prosemirror",
+		"alicloud"
 	],
 	"css.customData": ["${workspaceFolder}/.vscode/tailwind.json"],
 	"css.validate": false,

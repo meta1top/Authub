@@ -1,4 +1,5 @@
 import type { HandleProps } from "@meta-1/design";
+import { BucketType } from "@meta-1/nest-types";
 import { preSign } from "@/rest/assets";
 
 const mimeTypeRegex = /:(.*?);/;
@@ -31,10 +32,12 @@ export function dataURLToFile(dataUrl: string, filename: string) {
 export type UploadOptions = {
   name: string;
   file: File; // 文件
-  type?: 0 | 1; // 0: 公开 1: 私有
+  type?: 0 | 1; // 0: 公开 1: 私有 (已废弃，使用 bucketType)
+  bucketType?: BucketType; // 桶类型
   contentType?: string; // 文件类型
   data?: unknown;
   headers?: Record<string, string>;
+  prefix?: string; // 文件路径前缀
   onProgress?: (percent: number, event: ProgressEvent) => void; // 进度回调,
   onError?: (error: string) => void; // 错误回调
   onSuccess?: (data: string) => void; // 成功回调
@@ -49,17 +52,22 @@ export type UploadResult = {
 const ERROR_MESSAGE = "Failed to upload";
 
 export const upload = async (options: UploadOptions) => {
-  const { onProgress, file, type = 0, data, headers, onError, onSuccess } = options;
+  const { onProgress, file, type = 0, bucketType, data, headers, onError, onSuccess, prefix } = options;
   return new Promise<UploadResult>((resolve) => {
     const allHeaders = {
       "Content-Type": options.contentType || "application/octet-stream",
       "Content-Length": file?.size?.toString() || "0",
       ...(headers || {}),
     };
+    
+    // 兼容旧的 type 参数：0 = PUBLIC, 1 = PRIVATE
+    const finalBucketType = bucketType ?? (type === 0 ? BucketType.PUBLIC : BucketType.PRIVATE);
+    
     preSign({
       fileName: options.name,
       headers: allHeaders,
-      type,
+      bucketType: finalBucketType,
+      prefix,
       ...(data || {}),
     }).then(({ success, data, message }) => {
       if (success) {

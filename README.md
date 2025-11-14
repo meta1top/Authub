@@ -264,7 +264,12 @@ pnpm run build:web
 {
   "pnpm": {
     "overrides": {
-      "@meta-1/nest-security": "file:../support/libs/security"
+      "@meta-1/nest-assets": "file:../support/libs/assets",
+      "@meta-1/nest-common": "file:../support/libs/common",
+      "@meta-1/nest-message": "file:../support/libs/message",
+      "@meta-1/nest-nacos": "file:../support/libs/nacos",
+      "@meta-1/nest-security": "file:../support/libs/security",
+      "@meta-1/nest-types": "file:../support/libs/types"
     }
   }
 }

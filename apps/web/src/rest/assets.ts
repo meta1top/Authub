@@ -1,15 +1,7 @@
-import {post} from "@/utils/rest";
+import type { PresignedUploadUrlRequestData, PresignedUploadUrlResponseData } from "@meta-1/nest-types";
+import { post } from "@/utils/rest";
 
-export type PreSignData = {
-  fileName: string
-  type: 0 | 1
-  headers?: Record<string, string>
-}
+export type PreSignData = PresignedUploadUrlRequestData;
+export type PreSignResult = PresignedUploadUrlResponseData;
 
-export type PreSignResult = {
-  fileName: string
-  signedUrl: string
-  url: string
-}
-
-export const preSign = (data: PreSignData) => post<PreSignResult, PreSignData>('@assets/oss/file/pre-sign', data)
+export const preSign = (data: PreSignData) => post<PreSignResult, PreSignData>("@api/assets/upload/pre-sign", data);
