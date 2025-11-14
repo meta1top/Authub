@@ -4,7 +4,7 @@
 @source "../../../../../node_modules/@meta-1/editor/**/*.{ts,tsx,css}";
 
 @theme {
-  --primary: #172FCA;
+  --primary: #0D83F5;
 
   --width-input-xl: 45rem;
   --width-input-lg: 35rem;
@@ -83,7 +83,7 @@
 @layer base {
 	:root {
 		--login-footer-height: 3rem;
-		--layout-header-height: 4rem;
+		--layout-header-height: 3.5rem;
 	}
 	
 	html p a {

@@ -27,11 +27,9 @@ export const Header: FC<HeaderProps> = (props) => {
 
   const logo = useMemo(() => {
     return (
-      <div className="flex items-center rounded-md bg-primary pr-xs">
-        <Logo iconClassName="bg-white dark:bg-primary rounded-md" size={36} />
-        {appName ? (
-          <span className="rounded-md bg-primary px-1 py-0.5 font-bold text-lg text-white">{appName}</span>
-        ) : null}
+      <div className="flex items-center gap-xs rounded-md">
+        <Logo className="size-8" />
+        {appName ? <span className="rounded-md py-0.5 font-bold text-foreground text-xl">{appName}</span> : null}
       </div>
     );
   }, [appName]);
@@ -47,20 +45,20 @@ export const Header: FC<HeaderProps> = (props) => {
   return (
     <div
       className={classNames(
-        "flex h-[var(--layout-header-height)] w-full items-center justify-center border-b p-sm",
+        "flex h-[var(--layout-header-height)] w-full items-center justify-center border-b px-sm py-xs",
         "bg-background",
         className,
       )}
     >
-      <div className="flex flex-1 items-center justify-start space-x-2xl">
-        <div className="flex items-center justify-center space-x-sm">
+      <div className="flex flex-1 items-center justify-start gap-2xl">
+        <div className="flex items-center justify-center gap-sm">
           {logoUrl ? <Link href={logoUrl}>{logo}</Link> : logo}
         </div>
         <div className="flex-1">
           <Menus active={active} />
         </div>
       </div>
-      <div className="flex items-center justify-center space-x-xs">
+      <div className="flex items-center justify-center gap-xs">
         {isLogin ? (
           <>
             <Notice />
