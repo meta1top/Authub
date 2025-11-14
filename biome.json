@@ -1,5 +1,5 @@
 {
-  "$schema": "https://biomejs.dev/schemas/2.3.1/schema.json",
+  "$schema": "https://biomejs.dev/schemas/2.3.5/schema.json",
   "root": true,
   "vcs": {
     "enabled": true,
@@ -63,11 +63,16 @@
     }
   },
   "css": {
-    "linter": {
-      "enabled": false
-    },
     "parser": {
+      "cssModules": false,
+      "allowWrongLineComments": true,
       "tailwindDirectives": true
+    },
+    "linter": {
+      "enabled": true
+    },
+    "formatter": {
+      "enabled": true
     }
   },
   "javascript": {
@@ -104,5 +109,20 @@
         "useSortedAttributes": "on"
       }
     }
-  }
+  },
+  "overrides": [
+    {
+      "includes": ["**/*.css"],
+      "linter": {
+        "rules": {
+          "complexity": {
+            "noImportantStyles": "off"
+          },
+          "correctness": {
+            "noUnknownTypeSelector": "off"
+          }
+        }
+      }
+    }
+  ]
 }
