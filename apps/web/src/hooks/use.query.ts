@@ -7,7 +7,7 @@ import {
 } from "@tanstack/react-query";
 
 import { useMessage } from "@meta-1/design";
-import type { RestResult } from "@/types/rest";
+import type { RestResult } from "@meta-1/nest-types";
 import { RestError } from "@/utils/rest";
 
 type RestQueryOptions<

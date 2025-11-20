@@ -1,8 +1,8 @@
 import type { AxiosResponse } from "axios";
 
+import type { RestResult } from "@meta-1/nest-types";
 import bus from "@/events";
 import { UNAUTHORIZED } from "@/events/auth";
-import type { RestResult } from "@/types/rest";
 import { get } from "@/utils/headers.client";
 // Rest 配置
 import { alias, config } from "@/utils/rest";

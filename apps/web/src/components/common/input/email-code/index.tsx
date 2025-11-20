@@ -2,8 +2,8 @@ import { type ChangeEvent, type ComponentProps, useCallback, useEffect, useMemo,
 import { useTranslation } from "react-i18next";
 
 import { Button, Input } from "@meta-1/design";
+import type { RestResult } from "@meta-1/nest-types";
 import { useMutation } from "@/hooks";
-import type { RestResult } from "@/types/rest";
 import { isEmail } from "@/utils";
 import { i18n } from "@/utils/locale.client";
 

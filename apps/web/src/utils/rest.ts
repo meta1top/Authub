@@ -1,7 +1,8 @@
 import type { AxiosRequestConfig } from "axios";
 import Axios, { type AxiosHeaders, type AxiosResponse } from "axios";
 
-import type { RestConfig, RestResult } from "@/types/rest";
+import type { RestResult } from "@meta-1/nest-types";
+import type { RestConfig } from "@/types/rest";
 
 let _config: RestConfig = {};
 const instance = Axios.create({

@@ -1,6 +1,6 @@
 import { isServer, QueryClient, type QueryKey } from "@tanstack/react-query";
 
-import type { RestResult } from "@/types/rest";
+import type { RestResult } from "@meta-1/nest-types";
 import { RestError } from "@/utils/rest";
 
 function makeQueryClient() {

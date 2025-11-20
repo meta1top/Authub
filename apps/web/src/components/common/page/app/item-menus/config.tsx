@@ -1,8 +1,10 @@
 import { useTranslation } from "react-i18next";
 
 import type { DropdownMenuItemProps } from "@meta-1/design";
+import type { AppListItem } from "@meta-1/lib-types";
 import { useProfile } from "@/hooks";
-import type { AppListResponse } from "@/types/app";
+
+type AppListResponse = AppListItem;
 
 export const useAppItemMenus = (app: AppListResponse): DropdownMenuItemProps[] => {
   const { enable, role, ownerId } = app;
@@ -10,7 +12,7 @@ export const useAppItemMenus = (app: AppListResponse): DropdownMenuItemProps[] =
   const profile = useProfile();
   const isOwner = profile?.id === ownerId;
   const isAdmin = role === 1;
-  const isSystemApp = app.id === 1;
+  const isSystemApp = app.id === "1";
   return [
     {
       label: t("详情"),

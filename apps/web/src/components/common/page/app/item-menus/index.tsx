@@ -4,9 +4,12 @@ import { useRouter } from "next/navigation";
 import { useTranslation } from "react-i18next";
 
 import { Action, Dropdown, useAlert } from "@meta-1/design";
+import type { AppListItem } from "@meta-1/lib-types";
 import { useMutation } from "@/hooks";
 import { deleteApp, disable, enable } from "@/rest/app";
-import type { AppListResponse } from "@/types/app";
+
+type AppListResponse = AppListItem;
+
 import { useAppsReload } from "../hooks";
 import { useAppItemMenus } from "./config";
 

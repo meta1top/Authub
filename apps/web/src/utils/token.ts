@@ -1,13 +1,9 @@
 import { deleteCookie, getCookie, setCookie } from "cookies-next";
 
+import { Token } from "@meta-1/lib-types";
 import { getRootDomain } from ".";
 
 export const COOKIE_MAX_AGE = 60 * 60 * 24 * 365;
-
-export interface Token {
-  token: string;
-  expiresIn: number;
-}
 
 export const setToken = (data: Token) => {
   setCookie("token", JSON.stringify(data), {

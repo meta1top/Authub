@@ -2,8 +2,10 @@ import type { FC } from "react";
 import { useTranslation } from "react-i18next";
 
 import { Avatar, Badge } from "@meta-1/design";
+import type { AppListItem } from "@meta-1/lib-types";
 import { AppItemMenus } from "@/components/common/page/app/item-menus";
-import type { AppListResponse } from "@/types/app";
+
+type AppListResponse = AppListItem;
 
 export type AppItemProps = {
   app: AppListResponse;
@@ -21,7 +23,7 @@ export const AppItem: FC<AppItemProps> = (props) => {
       <Avatar
         className="size-20 rounded-md bg-muted [&>span]:rounded-md"
         fallback={app.appKey.charAt(0)}
-        src={app.logo}
+        src={app.logo ?? undefined}
       />
       <div className="flex flex-1 flex-col">
         <div className="flex items-center gap-xs font-bold text-md">
