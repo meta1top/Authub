@@ -19,7 +19,8 @@ export const AppLayout: FC<AppLayoutProps> = (props) => {
 
   const { data: app } = useQuery({
     queryKey: ["app", id],
-    queryFn: ({ queryKey }) => detail(Number(queryKey[1])),
+    queryFn: () => detail(id!),
+    enabled: !!id,
   });
 
   useHydrateAtoms([[currentAppState, app]]);

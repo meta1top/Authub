@@ -17,7 +17,7 @@ const Layout: FC<LayoutProps> = async (props) => {
 
   await prefetchQuery(queryClient, {
     queryKey: ["app", id],
-    queryFn: ({ queryKey }) => detail(Number(queryKey[1])),
+    queryFn: () => detail(id),
   });
 
   const dehydratedState = dehydrate(queryClient);
