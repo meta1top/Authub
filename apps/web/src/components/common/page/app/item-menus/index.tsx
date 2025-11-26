@@ -3,8 +3,8 @@ import { EllipsisVertical } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useTranslation } from "react-i18next";
 
+import type { AppListItem } from "@meta-1/authub-types";
 import { Action, Dropdown, useAlert } from "@meta-1/design";
-import type { AppListItem } from "@meta-1/lib-types";
 import { useMutation } from "@/hooks";
 import { deleteApp, disable, enable } from "@/rest/app";
 

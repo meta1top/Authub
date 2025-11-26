@@ -1,4 +1,4 @@
-import type { AppListItem, AppResponse } from "@meta-1/lib-types";
+import type { AppListItem, AppResponse } from "@meta-1/authub-types";
 import type { PageData, PageRequest } from "@meta-1/nest-types";
 import type { AddAppFormData } from "@/schema/app";
 import { del, get, post, put } from "@/utils/rest";

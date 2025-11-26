@@ -7,7 +7,7 @@ import { RedisModule } from "@nestjs-modules/ioredis";
 import { AcceptLanguageResolver, HeaderResolver, I18nJsonLoader, I18nModule, QueryResolver } from "nestjs-i18n";
 import { SnakeNamingStrategy } from "typeorm-naming-strategies";
 
-import { AccountModule, AuthGuard } from "@meta-1/lib-account";
+import { AccountModule, AuthGuard } from "@meta-1/authub-account";
 import { AssetsModule } from "@meta-1/nest-assets";
 import { CommonModule } from "@meta-1/nest-common";
 import { MessageModule } from "@meta-1/nest-message";

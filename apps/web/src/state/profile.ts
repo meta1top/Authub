@@ -1,6 +1,6 @@
 import { atom } from "jotai";
 
-import type { Profile } from "@meta-1/lib-types";
+import type { Profile } from "@meta-1/authub-types";
 
 export const isLoginState = atom<boolean>(false);
 

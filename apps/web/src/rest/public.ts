@@ -1,4 +1,4 @@
-import { CommonConfig } from "@meta-1/lib-types";
+import { CommonConfig } from "@meta-1/authub-types";
 import { SendCodeData } from "@meta-1/nest-types";
 import { get, post } from "@/utils/rest";
 

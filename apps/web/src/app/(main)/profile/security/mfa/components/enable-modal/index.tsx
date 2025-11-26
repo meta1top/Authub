@@ -2,8 +2,8 @@ import { type FC, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { object, string } from "zod";
 
+import { OTPEnable } from "@meta-1/authub-types";
 import { Button, Dialog, Form, FormItem } from "@meta-1/design";
-import { OTPEnable } from "@meta-1/lib-types";
 import { SendCodeData } from "@meta-1/nest-types";
 import { CodeInput } from "@/components/common/input/code";
 import { EmailCodeInput } from "@/components/common/input/email-code";

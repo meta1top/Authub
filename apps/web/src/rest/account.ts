@@ -1,5 +1,5 @@
-import type { LoginData, Profile, Token } from "@meta-1/lib-types";
-import { RegisterData } from "@meta-1/lib-types";
+import type { LoginData, Profile, Token } from "@meta-1/authub-types";
+import { RegisterData } from "@meta-1/authub-types";
 import { get, post } from "@/utils/rest";
 
 export const login = (data: LoginData) => post<Token, LoginData>("@api/account/login", data);

@@ -1,6 +1,6 @@
 import { createZodDto } from "nestjs-zod";
 
-import { OTPDisableSchema, OTPEnableSchema, OTPSecretSchema, OTPStatusSchema } from "@meta-1/lib-types";
+import { OTPDisableSchema, OTPEnableSchema, OTPSecretSchema, OTPStatusSchema } from "@meta-1/authub-types";
 
 export class OTPStatusDto extends createZodDto(OTPStatusSchema) {}
 

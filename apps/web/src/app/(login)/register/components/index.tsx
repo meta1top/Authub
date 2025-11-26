@@ -4,8 +4,8 @@ import { useState } from "react";
 import cloneDeep from "lodash/cloneDeep";
 import { useTranslation } from "react-i18next";
 
+import { RegisterData, RegisterSchema } from "@meta-1/authub-types";
 import { Button, Form, FormItem, Input } from "@meta-1/design";
-import { RegisterData, RegisterSchema } from "@meta-1/lib-types";
 import { SendCodeData } from "@meta-1/nest-types";
 import { EmailCodeInput } from "@/components/common/input/email-code";
 import { useEncrypt, useMutation } from "@/hooks";

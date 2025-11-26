@@ -1,4 +1,4 @@
-import { OTPEnable, OTPSecret, OTPStatus } from "@meta-1/lib-types";
+import { OTPEnable, OTPSecret, OTPStatus } from "@meta-1/authub-types";
 import { get, post } from "@/utils/rest";
 
 export const otpSecret = () => get<OTPSecret>("@api/account/otp/secret");

@@ -39,7 +39,7 @@
 
 ### 后端库
 
-#### [@meta-1/lib-account](./libs/account) | [📖 文档](./libs/account/README.md)
+#### [@meta-1/authub-account](./libs/account) | [📖 文档](./libs/account/README.md)
 账号管理核心模块。
 
 **特性：**
@@ -50,7 +50,7 @@
 - 📊 **应用管理** - 多应用支持
 - 🔄 **会话管理** - 用户会话跟踪
 
-#### [@meta-1/lib-types](./libs/types) | [📖 文档](./libs/types/README.md)
+#### [@meta-1/authub-types](./libs/types) | [📖 文档](./libs/types/README.md)
 共享类型定义和 Zod Schema。
 
 **特性：**
@@ -148,8 +148,8 @@ pnpm run test:cov              # 运行测试并生成覆盖率报告
 - [AuthHub Web](./apps/web/README.md) - 前端应用完整文档
 
 ### 库文档
-- [@meta-1/lib-account](./libs/account/README.md) - 账号管理、认证、OTP、权限控制
-- [@meta-1/lib-types](./libs/types/README.md) - 类型定义和 Schema
+- [@meta-1/authub-account](./libs/account/README.md) - 账号管理、认证、OTP、权限控制
+- [@meta-1/authub-types](./libs/types/README.md) - 类型定义和 Schema
 
 ### 依赖的外部库
 

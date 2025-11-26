@@ -1,6 +1,6 @@
 import { deleteCookie, getCookie, setCookie } from "cookies-next";
 
-import { Token } from "@meta-1/lib-types";
+import { Token } from "@meta-1/authub-types";
 import { getRootDomain } from ".";
 
 export const COOKIE_MAX_AGE = 60 * 60 * 24 * 365;

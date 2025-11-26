@@ -1,4 +1,4 @@
-# @meta-1/lib-account
+# @meta-1/authub-account
 
 AuthHub 账号管理核心模块，提供用户认证、授权、OTP 双因素认证等功能。
 
@@ -30,7 +30,7 @@ pnpm install
 
 ```typescript
 import { Module } from '@nestjs/common';
-import { AccountModule } from '@meta-1/lib-account';
+import { AccountModule } from '@meta-1/authub-account';
 
 @Module({
   imports: [AccountModule],
@@ -44,7 +44,7 @@ export class AppModule {}
 
 ```typescript
 import { Injectable } from '@nestjs/common';
-import { AccountService } from '@meta-1/lib-account';
+import { AccountService } from '@meta-1/authub-account';
 
 @Injectable()
 export class AuthService {
@@ -118,7 +118,7 @@ export class AccountController {
 #### 启用 OTP
 
 ```typescript
-import { AccountOtpService } from '@meta-1/lib-account';
+import { AccountOtpService } from '@meta-1/authub-account';
 
 @Injectable()
 export class SecurityService {
@@ -175,7 +175,7 @@ export class AuthService {
 
 ```typescript
 import { Controller, Get, UseGuards } from '@nestjs/common';
-import { AuthGuard } from '@meta-1/lib-account';
+import { AuthGuard } from '@meta-1/authub-account';
 import { Public } from '@meta-1/nest-security';
 
 @Controller('api')

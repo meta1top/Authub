@@ -1,7 +1,7 @@
 import { Controller, Get } from "@nestjs/common";
 import { ApiOperation, ApiResponse, ApiTags } from "@nestjs/swagger";
 
-import { CommonConfig } from "@meta-1/lib-types";
+import { CommonConfig } from "@meta-1/authub-types";
 import { AppError } from "@meta-1/nest-common";
 import { NacosConfigService } from "@meta-1/nest-nacos";
 import { Public } from "@meta-1/nest-security";

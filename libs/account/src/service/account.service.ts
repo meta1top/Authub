@@ -3,7 +3,7 @@ import { InjectRepository } from "@nestjs/typeorm";
 import ms from "ms";
 import { Repository } from "typeorm";
 
-import { Token } from "@meta-1/lib-types";
+import { Token } from "@meta-1/authub-types";
 import { AppError, Cacheable, CacheableService, md5 } from "@meta-1/nest-common";
 import { MailCodeService } from "@meta-1/nest-message";
 import { EncryptService, OTPService, SessionService, TokenService } from "@meta-1/nest-security";

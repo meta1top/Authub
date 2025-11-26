@@ -2,7 +2,7 @@ import { Injectable } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 import { Repository } from "typeorm";
 
-import type { AppResponse } from "@meta-1/lib-types";
+import type { AppResponse } from "@meta-1/authub-types";
 import { AppError, PageDataDto } from "@meta-1/nest-common";
 import type { PageRequestData } from "@meta-1/nest-types";
 import { AddAppDto, AppListItemDto } from "../dto";

@@ -1,8 +1,8 @@
 import type { FC } from "react";
 import { useTranslation } from "react-i18next";
 
+import type { AppListItem } from "@meta-1/authub-types";
 import { Avatar, Badge } from "@meta-1/design";
-import type { AppListItem } from "@meta-1/lib-types";
 import { AppItemMenus } from "@/components/common/page/app/item-menus";
 
 type AppListResponse = AppListItem;

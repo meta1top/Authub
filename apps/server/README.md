@@ -131,8 +131,8 @@ pnpm run start:server
 - **@nestjs/config** - 配置管理
 
 ### 业务库
-- **@meta-1/lib-account** - 账号管理核心模块
-- **@meta-1/lib-types** - 类型定义
+- **@meta-1/authub-account** - 账号管理核心模块
+- **@meta-1/authub-types** - 类型定义
 
 ### 工具库
 - **@meta-1/nest-common** - 通用工具和装饰器

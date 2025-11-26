@@ -6,8 +6,8 @@ import isUndefined from "lodash/isUndefined";
 import Link from "next/link";
 import { useTranslation } from "react-i18next";
 
+import { LoginData, LoginSchema } from "@meta-1/authub-types";
 import { Button, Divider, Form, FormItem, Input, useMessage } from "@meta-1/design";
-import { LoginData, LoginSchema } from "@meta-1/lib-types";
 import { useEncrypt, useMutation } from "@/hooks";
 import { login } from "@/rest/account";
 import { RestError } from "@/utils/rest";

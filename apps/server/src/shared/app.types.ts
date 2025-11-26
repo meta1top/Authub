@@ -1,6 +1,6 @@
 import { RedisClusterOptions, RedisSingleOptions } from "@nestjs-modules/ioredis";
 
-import { AccountConfig } from "@meta-1/lib-account";
+import { AccountConfig } from "@meta-1/authub-account";
 
 export type DatabaseConfig = {
   host: string;

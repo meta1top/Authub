@@ -1,4 +1,4 @@
-# @meta-1/lib-types
+# @meta-1/authub-types
 
 AuthHub 共享类型定义和 Zod Schema，用于前后端类型共享和数据验证。
 
@@ -30,7 +30,7 @@ import {
   AccountType,
   AccountOtpSchema,
   AccountOtpType,
-} from '@meta-1/lib-types';
+} from '@meta-1/authub-types';
 ```
 
 ### 2. 在后端使用（NestJS）
@@ -40,7 +40,7 @@ import {
 ```typescript
 import { Controller, Post, Body } from '@nestjs/common';
 import { createZodDto } from 'nestjs-zod';
-import { AccountSchema } from '@meta-1/lib-types';
+import { AccountSchema } from '@meta-1/authub-types';
 
 // 创建 DTO 类
 export class RegisterDto extends createZodDto(
@@ -60,7 +60,7 @@ export class AuthController {
 #### 数据验证
 
 ```typescript
-import { AccountSchema, AccountType } from '@meta-1/lib-types';
+import { AccountSchema, AccountType } from '@meta-1/authub-types';
 
 @Injectable()
 export class AccountService {
@@ -83,7 +83,7 @@ export class AccountService {
 ```typescript
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { AccountSchema, AccountType } from '@meta-1/lib-types';
+import { AccountSchema, AccountType } from '@meta-1/authub-types';
 
 export function RegisterForm() {
   const {
@@ -124,7 +124,7 @@ export function RegisterForm() {
 #### API 调用验证
 
 ```typescript
-import { AccountOtpSchema, AccountOtpType } from '@meta-1/lib-types';
+import { AccountOtpSchema, AccountOtpType } from '@meta-1/authub-types';
 
 async function enableOtp(accountId: string, code: string) {
   // 验证数据
@@ -171,7 +171,7 @@ export type AccountType = z.infer<typeof AccountSchema>;
 **使用示例：**
 
 ```typescript
-import { AccountSchema } from '@meta-1/lib-types';
+import { AccountSchema } from '@meta-1/authub-types';
 
 // 验证完整账号数据
 const result = AccountSchema.safeParse({
@@ -222,7 +222,7 @@ export type AccountOtpType = z.infer<typeof AccountOtpSchema>;
 **使用示例：**
 
 ```typescript
-import { AccountOtpSchema } from '@meta-1/lib-types';
+import { AccountOtpSchema } from '@meta-1/authub-types';
 
 // 验证 OTP 启用请求
 const otpEnableSchema = AccountOtpSchema.pick({
@@ -301,7 +301,7 @@ export type ProfileType = z.infer<typeof ProfileSchema>;
 ### 扩展现有 Schema
 
 ```typescript
-import { AccountSchema } from '@meta-1/lib-types';
+import { AccountSchema } from '@meta-1/authub-types';
 import { z } from 'zod';
 
 // 扩展账号 Schema，添加额外字段
@@ -317,7 +317,7 @@ export type ExtendedAccountType = z.infer<typeof ExtendedAccountSchema>;
 ### 部分更新 Schema
 
 ```typescript
-import { AccountSchema } from '@meta-1/lib-types';
+import { AccountSchema } from '@meta-1/authub-types';
 
 // 创建部分更新 Schema（所有字段可选）
 export const UpdateAccountSchema = AccountSchema.partial().pick({

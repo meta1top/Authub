@@ -1,7 +1,7 @@
 import { Body, Controller, Delete, Get, Param, Post, Put, Query } from "@nestjs/common";
 import { ApiExtraModels, ApiOperation, ApiParam, ApiResponse, ApiTags } from "@nestjs/swagger";
 
-import type { AppResponse } from "@meta-1/lib-types";
+import type { AppResponse } from "@meta-1/authub-types";
 import { createPageModels, createPageSchema, PageDataDto, PageRequestDto } from "@meta-1/nest-common";
 import { CurrentUser, type SessionUser } from "@meta-1/nest-security";
 import { AddAppDto, AppListItemDto, AppResponseDto } from "../dto";

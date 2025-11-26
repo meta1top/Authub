@@ -2,7 +2,7 @@ import { Injectable, Logger } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 import { Repository } from "typeorm";
 
-import { OTPSecret, OTPStatus } from "@meta-1/lib-types";
+import { OTPSecret, OTPStatus } from "@meta-1/authub-types";
 import { AppError, CacheableService, CacheEvict } from "@meta-1/nest-common";
 import { MailCodeService } from "@meta-1/nest-message";
 import { OTPService } from "@meta-1/nest-security";

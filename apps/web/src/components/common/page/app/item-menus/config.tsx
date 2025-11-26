@@ -1,7 +1,7 @@
 import { useTranslation } from "react-i18next";
 
+import type { AppListItem } from "@meta-1/authub-types";
 import type { DropdownMenuItemProps } from "@meta-1/design";
-import type { AppListItem } from "@meta-1/lib-types";
 import { useProfile } from "@/hooks";
 
 type AppListResponse = AppListItem;

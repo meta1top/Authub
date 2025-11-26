@@ -1,6 +1,6 @@
 import { createZodDto } from "nestjs-zod";
 
-import { BaseRegisterSchema, LoginSchema } from "@meta-1/lib-types";
+import { BaseRegisterSchema, LoginSchema } from "@meta-1/authub-types";
 
 export class RegisterDto extends createZodDto(BaseRegisterSchema) {}
 
