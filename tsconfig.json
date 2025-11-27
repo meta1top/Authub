@@ -24,8 +24,12 @@
     "paths": {
       "@meta-1/authub-account": ["libs/account/src"],
       "@meta-1/authub-account/*": ["libs/account/src/*"],
+      "@meta-1/authub-app": ["libs/app/src"],
+      "@meta-1/authub-app/*": ["libs/app/src/*"],
       "@meta-1/authub-types": ["libs/types/src"],
-      "@meta-1/authub-types/*": ["libs/types/src/*"]
+      "@meta-1/authub-types/*": ["libs/types/src/*"],
+      "@meta-1/authub-common": ["libs/common/src"],
+      "@meta-1/authub-common/*": ["libs/common/src/*"]
     }
   }
 }

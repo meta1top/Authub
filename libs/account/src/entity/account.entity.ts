@@ -89,4 +89,12 @@ export class Account {
     comment: "OTP生效时间",
   })
   otpEnableTime: Date | null;
+
+  @Column({
+    type: "varchar",
+    length: 20,
+    nullable: true,
+    comment: "加入应用ID",
+  })
+  joinAppId: string | null;
 }

@@ -7,6 +7,7 @@ export const BaseRegisterSchema = z.object({
   email: z.string().email({ message: "邮箱格式不正确" }).describe("邮箱"),
   code: z.string().min(1, "请输入验证码").regex(REGULAR_CODE, "验证码格式不正确").describe("验证码"),
   password: z.string().min(1, "请输入密码").describe("密码"),
+  app: z.string().optional().describe("应用标识"),
 });
 
 // 前端注册 Schema (增强密码格式验证 + password2 + 一致性检查)
@@ -48,3 +49,23 @@ export const BindAtlassianSchema = z.object({
 });
 
 export type BindAtlassianData = z.infer<typeof BindAtlassianSchema>;
+
+export const UserSchema = z.object({
+  id: z.string().describe("用户ID"),
+  username: z.string().describe("用户名"),
+  email: z.string().email().describe("邮箱"),
+  avatar: z.string().nullable().describe("头像"),
+});
+
+export type User = z.infer<typeof UserSchema>;
+
+export const ProfileSchema = UserSchema.extend({
+  otpStatus: z
+    .union([z.literal(0), z.literal(1)])
+    .optional()
+    .describe("OTP状态: 0 未绑定 1 已绑定"),
+  joinAppId: z.string().nullable().describe("加入应用ID"),
+  role: z.number().nullable().describe("角色: 1-管理员 2-成员"),
+});
+
+export type Profile = z.infer<typeof ProfileSchema>;

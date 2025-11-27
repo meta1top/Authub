@@ -20,7 +20,6 @@ export class AppService {
    * 添加应用
    */
   async add(dto: AddAppDto, ownerId: string): Promise<void> {
-    // 检查 appKey 是否已存在
     const existing = await this.appRepository.findOne({
       where: { appKey: dto.appKey, deleted: false },
     });
@@ -36,11 +35,10 @@ export class AppService {
 
     await this.appRepository.save(app);
 
-    // 创建应用账号关联（所有者默认为管理员）
     const appAccount = this.appAccountRepository.create({
       appId: app.id,
       accountId: ownerId,
-      role: 1, // 1-管理员
+      role: 1,
     });
 
     await this.appAccountRepository.save(appAccount);
@@ -52,7 +50,6 @@ export class AppService {
   async list(params: PageRequestData, accountId: string): Promise<PageDataDto<AppListItemDto>> {
     const { page, size, keyword } = params;
 
-    // 构建查询
     let queryBuilder = this.appRepository
       .createQueryBuilder("app")
       .innerJoin("app_account", "appAccount", "appAccount.appId = app.id")
@@ -65,10 +62,8 @@ export class AppService {
       });
     }
 
-    // 获取总数
     const total = await queryBuilder.getCount();
 
-    // 查询数据，使用 getRawMany 获取包含 join 字段的数据
     const rawResults = await queryBuilder
       .select([
         "app.id",
@@ -87,7 +82,6 @@ export class AppService {
       .orderBy("app.createTime", "DESC")
       .getRawMany();
 
-    // 转换为响应格式（直接返回 DTO）
     const data: AppListItemDto[] = rawResults.map((row) => ({
       id: row.app_id,
       name: row.app_name,
@@ -168,6 +162,47 @@ export class AppService {
       enable: Boolean(result.app_enable),
       role: result.appAccount_role || 2,
     };
+  }
+
+  /**
+   * 根据 appKey 查找应用
+   */
+  async findByAppKey(appKey: string): Promise<App | null> {
+    return this.appRepository.findOne({
+      where: { appKey, deleted: false },
+    });
+  }
+
+  /**
+   * 添加应用成员
+   */
+  async addMember(appId: string, accountId: string, role: number): Promise<void> {
+    const existing = await this.appAccountRepository.findOne({
+      where: { appId, accountId },
+    });
+
+    if (existing) {
+      return;
+    }
+
+    const appAccount = this.appAccountRepository.create({
+      appId,
+      accountId,
+      role,
+    });
+
+    await this.appAccountRepository.save(appAccount);
+  }
+
+  /**
+   * 获取用户在应用中的角色
+   */
+  async getUserRole(appId: string, accountId: string): Promise<number | null> {
+    const appAccount = await this.appAccountRepository.findOne({
+      where: { appId, accountId },
+    });
+
+    return appAccount?.role ?? null;
   }
 
   /**

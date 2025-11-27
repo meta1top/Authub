@@ -5,6 +5,8 @@ import Link from "next/link";
 import { useTranslation } from "react-i18next";
 
 import { Action, DropdownMenu, DropdownMenuTrigger, Separator } from "@meta-1/design";
+import { Access } from "@/components/common/access";
+import { AccessRole } from "@/types/access";
 import { Profile } from "./profile";
 
 export type NavItemConfig = {
@@ -13,6 +15,7 @@ export type NavItemConfig = {
   component?: ReactNode;
   href?: string;
   type?: "link" | "dropdown" | "separator";
+  access?: AccessRole[];
 };
 
 export const useNavs = (): NavItemConfig[] => {
@@ -23,22 +26,26 @@ export const useNavs = (): NavItemConfig[] => {
       title: t("应用"),
       href: "/apps",
       type: "link",
+      access: [AccessRole.SU],
     },
     {
       id: "users",
       title: t("用户"),
       href: "/users",
       type: "link",
+      access: [AccessRole.ADMIN],
     },
     {
       id: "separator",
       type: "separator",
+      access: [AccessRole.ADMIN],
     },
     {
       id: "profile",
       title: t("我的账号"),
       component: <Profile />,
       type: "dropdown",
+      access: [AccessRole.USER],
     },
   ];
 };
@@ -92,7 +99,16 @@ export const Menus = (props: MenusProps) => {
   const { active } = props;
   const navs = useNavs();
   const items = useMemo(() => {
-    return navs.map((value) => <NavItem active={active} config={value} key={value.id} />);
-  }, [active]);
+    return navs.map((value) => {
+      if (value.access && value.access.length > 0) {
+        return (
+          <Access key={value.id} roles={value.access}>
+            <NavItem active={active} config={value} />
+          </Access>
+        );
+      }
+      return <NavItem active={active} config={value} key={value.id} />;
+    });
+  }, [active, navs]);
   return <ul className="flex gap-2">{items}</ul>;
 };

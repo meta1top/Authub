@@ -2,19 +2,21 @@ import { Global, Logger, Module, OnModuleInit } from "@nestjs/common";
 import { TypeOrmModule } from "@nestjs/typeorm";
 import { get } from "lodash";
 
+import { AppModule } from "@meta-1/authub-app";
+import { CommonModule as AuthubCommonModule } from "@meta-1/authub-common";
 import { CommonModule } from "@meta-1/nest-common";
 import { NacosConfigService } from "@meta-1/nest-nacos";
-import { AccountController, AccountOTPController, AppController } from "./controller";
-import { Account, AccountToken, App, AppAccount } from "./entity";
-import { AccountConfigService, AccountOTPService, AccountService, AppService } from "./service";
+import { AccountController, AccountOTPController } from "./controller";
+import { Account, AccountToken } from "./entity";
+import { AccountConfigService, AccountOTPService, AccountService } from "./service";
 import { ACCOUNT_CONFIG_KEY, AccountConfig } from "./shared";
 
 @Global()
 @Module({
-  imports: [TypeOrmModule.forFeature([Account, AccountToken, App, AppAccount]), CommonModule],
-  providers: [AccountConfigService, AccountService, AccountOTPService, AppService],
-  exports: [AccountService, AccountOTPService, AppService],
-  controllers: [AccountController, AccountOTPController, AppController],
+  imports: [TypeOrmModule.forFeature([Account, AccountToken]), CommonModule, AuthubCommonModule, AppModule],
+  providers: [AccountConfigService, AccountService, AccountOTPService],
+  exports: [AccountService, AccountOTPService],
+  controllers: [AccountController, AccountOTPController],
 })
 export class AccountModule implements OnModuleInit {
   private readonly logger = new Logger(AccountModule.name);

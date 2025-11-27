@@ -3,11 +3,11 @@ import { Logger } from "@nestjs/common";
 import { NestFactory } from "@nestjs/core";
 import { config } from "dotenv";
 
+import type { ServerConfig } from "@meta-1/authub-common";
 import { syncLocales } from "@meta-1/nest-common";
 import { loadNacosConfig } from "@meta-1/nest-nacos";
 import { AppModule } from "./app.module";
 import { setupSwagger } from "./app.swagger";
-import type { AppConfig } from "./shared/app.types";
 
 // 在最开始加载环境变量
 config({
@@ -24,7 +24,7 @@ async function bootstrap() {
     targetDir: path.join(process.cwd(), "dist/apps/server/i18n"),
     watch: isDevelopment,
   });
-  const nacosConfig = await loadNacosConfig<AppConfig>();
+  const nacosConfig = await loadNacosConfig<ServerConfig>();
   if (!nacosConfig) {
     logger.warn("Starting application without Nacos configuration");
   }

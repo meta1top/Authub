@@ -1,13 +1,15 @@
-import { Injectable, Logger } from "@nestjs/common";
+import { Injectable } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 import ms from "ms";
 import { Repository } from "typeorm";
 
-import { Token } from "@meta-1/authub-types";
+import { AppService } from "@meta-1/authub-app";
+import { AppConfigService } from "@meta-1/authub-common";
+import { AppRole, ProfileSchema, Token } from "@meta-1/authub-types";
 import { AppError, Cacheable, CacheableService, md5 } from "@meta-1/nest-common";
 import { MailCodeService } from "@meta-1/nest-message";
 import { EncryptService, OTPService, SessionService, TokenService } from "@meta-1/nest-security";
-import { LoginDto, RegisterDto } from "../dto";
+import { LoginDto, ProfileDto, RegisterDto } from "../dto";
 import { Account } from "../entity";
 import { ErrorCode } from "../shared";
 import { AccountConfigService } from "./account-config.service";
@@ -15,7 +17,6 @@ import { AccountConfigService } from "./account-config.service";
 @Injectable()
 @CacheableService()
 export class AccountService {
-  private readonly logger = new Logger(AccountService.name);
   constructor(
     @InjectRepository(Account) private repository: Repository<Account>,
     private readonly mailCodeService: MailCodeService,
@@ -23,6 +24,8 @@ export class AccountService {
     private readonly tokenService: TokenService,
     private readonly sessionService: SessionService,
     private readonly accountConfigService: AccountConfigService,
+    private readonly appConfigService: AppConfigService,
+    private readonly appService: AppService,
     private readonly otpService: OTPService,
   ) {}
 
@@ -53,8 +56,24 @@ export class AccountService {
       password: encryptedPassword,
     });
 
+    // 获取来源应用 appKey
+    const appKey = dto.app || this.appConfigService.get().systemApp;
+
+    // 查找应用
+    const app = await this.appService.findByAppKey(appKey);
+
+    if (app) {
+      // 如果找到应用，设置 joinAppId
+      account.joinAppId = app.id;
+    }
+
     // save
-    this.repository.save(account);
+    await this.repository.save(account);
+
+    if (app) {
+      // 如果找到应用，添加应用成员（角色为成员）
+      await this.appService.addMember(app.id, account.id, 2 as AppRole);
+    }
 
     // 创建令牌
     const token = this.tokenService.create({
@@ -80,6 +99,27 @@ export class AccountService {
   @Cacheable({ key: "account:#{0}" })
   async findByEmail(email: string): Promise<Account | null> {
     return this.repository.findOne({ where: { email, deleted: false } });
+  }
+
+  /**
+   * 获取用户信息和应用角色
+   */
+  async getProfileWithRole(accountId: string): Promise<ProfileDto> {
+    const account = await this.repository.findOne({ where: { id: accountId, deleted: false } });
+
+    if (!account) {
+      throw new AppError(ErrorCode.ACCOUNT_NOT_FOUND);
+    }
+
+    let role: number | null = null;
+    if (account.joinAppId) {
+      role = await this.appService.getUserRole(account.joinAppId, accountId);
+    }
+
+    return ProfileSchema.parse({
+      ...account,
+      role,
+    });
   }
 
   /**

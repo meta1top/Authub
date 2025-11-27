@@ -8,17 +8,19 @@ import { AcceptLanguageResolver, HeaderResolver, I18nJsonLoader, I18nModule, Que
 import { SnakeNamingStrategy } from "typeorm-naming-strategies";
 
 import { AccountModule, AuthGuard } from "@meta-1/authub-account";
+import { AppModule as AuthubAppModule } from "@meta-1/authub-app";
+import type { ServerConfig } from "@meta-1/authub-common";
+import { CommonModule as AuthubCommonModule } from "@meta-1/authub-common";
 import { AssetsModule } from "@meta-1/nest-assets";
 import { CommonModule } from "@meta-1/nest-common";
 import { MessageModule } from "@meta-1/nest-message";
 import { NacosModule } from "@meta-1/nest-nacos";
 import { SecurityModule } from "@meta-1/nest-security";
 import { AppController, AssetsController, ConfigController, MailCodeController } from "./controller";
-import type { AppConfig } from "./shared";
 
 @Module({})
 export class AppModule {
-  static forRoot(preloadedConfig: AppConfig | null): DynamicModule {
+  static forRoot(preloadedConfig: ServerConfig | null): DynamicModule {
     const logger = new Logger(AppModule.name);
     const i18nPath = path.join(__dirname, "i18n");
     const imports: DynamicModule["imports"] = [
@@ -80,7 +82,16 @@ export class AppModule {
 
     return {
       module: AppModule,
-      imports: [...imports, CommonModule, MessageModule, SecurityModule, AssetsModule, AccountModule],
+      imports: [
+        ...imports,
+        CommonModule,
+        MessageModule,
+        SecurityModule,
+        AssetsModule,
+        AuthubAppModule,
+        AuthubCommonModule,
+        AccountModule,
+      ],
       controllers: [AppController, AssetsController, ConfigController, MailCodeController],
       providers: [
         {

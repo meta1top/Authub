@@ -75,4 +75,12 @@ export class App {
     comment: "回调地址",
   })
   callbackUrl: string | null;
+
+  @Column({
+    type: "varchar",
+    length: 255,
+    nullable: true,
+    comment: "首页地址",
+  })
+  homepage: string | null;
 }

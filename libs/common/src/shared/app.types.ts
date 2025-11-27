@@ -15,7 +15,12 @@ export type DatabaseConfig = {
 export type RedisConfig = RedisSingleOptions | RedisClusterOptions;
 
 export type AppConfig = {
+  systemApp: string;
+};
+
+export type ServerConfig = {
   database: DatabaseConfig;
   redis: RedisConfig;
   account: AccountConfig;
+  app: AppConfig;
 };

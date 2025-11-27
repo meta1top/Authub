@@ -21,6 +21,24 @@
         "tsConfigPath": "libs/account/tsconfig.lib.json"
       }
     },
+    "app": {
+      "type": "library",
+      "root": "libs/app",
+      "entryFile": "index",
+      "sourceRoot": "libs/app/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/app/tsconfig.lib.json"
+      }
+    },
+    "common": {
+      "type": "library",
+      "root": "libs/common",
+      "entryFile": "index",
+      "sourceRoot": "libs/common/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/common/tsconfig.lib.json"
+      }
+    },
     "server": {
       "type": "application",
       "root": "apps/server",

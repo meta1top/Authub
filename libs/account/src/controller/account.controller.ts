@@ -1,9 +1,9 @@
 import { Body, Controller, Get, Post } from "@nestjs/common";
-import { ApiTags } from "@nestjs/swagger";
+import { ApiOperation, ApiResponse, ApiTags } from "@nestjs/swagger";
 
 import { md5 } from "@meta-1/nest-common";
 import { CurrentUser, Public, SessionService, type SessionUser } from "@meta-1/nest-security";
-import { LoginDto, RegisterDto } from "../dto";
+import { LoginDto, ProfileDto, RegisterDto } from "../dto";
 import { AccountService } from "../service";
 
 @ApiTags("AccountController")
@@ -15,8 +15,14 @@ export class AccountController {
   ) {}
 
   @Get("/profile")
+  @ApiOperation({ summary: "获取用户信息" })
+  @ApiResponse({
+    status: 200,
+    description: "获取用户信息成功",
+    type: ProfileDto,
+  })
   profile(@CurrentUser() user: SessionUser) {
-    return this.accountService.findByEmail(user.username);
+    return this.accountService.getProfileWithRole(user.id);
   }
 
   @Public()
